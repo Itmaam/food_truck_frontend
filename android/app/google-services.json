@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "572936989836",
+    "project_id": "food-track-finder",
+    "storage_bucket": "food-track-finder.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572936989836:android:a86544c4b55bfc2410dfa9",
+        "android_client_info": {
+          "package_name": "com.foodTruckFinder.UserApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572936989836-1s4n4ii0mmckd34mhg4gfggr3squ272l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodTruckFinder.UserApp",
+            "certificate_hash": "1a25cddb649fba89ece70ef4f8419854d9308d67"
+          }
+        },
+        {
+          "client_id": "572936989836-7u07ptoledb1mq8sbhef8hv7tug8qc7q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodTruckFinder.UserApp",
+            "certificate_hash": "a18bba07956b51ad2b3b66ed80064ae1913785fc"
+          }
+        },
+        {
+          "client_id": "572936989836-fgsm2dum83362lscb9ai0bnffv8c7n9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAltm2NOQ-_BiBXn8unO26-zBfx5nias4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572936989836-fgsm2dum83362lscb9ai0bnffv8c7n9p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "572936989836-peri343bahihpk6r8gou79gfog80l0jv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.foodTruckFinder.UserApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

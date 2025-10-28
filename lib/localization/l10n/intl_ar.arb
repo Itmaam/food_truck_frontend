@@ -1,0 +1,201 @@
+{
+    "@@locale": "ar",
+    "appTitle": "باحث عربات الطعام",
+    "dark": "مظلم",
+    "light": "فاتح",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "signup": "إنشاء حساب",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "submit": "إرسال",
+    "resetPassword": "إعادة تعيين كلمة المرور",
+    "verifyOtp": "تحقق من الرمز",
+    "otp": "رمز التحقق",
+    "cancel": "إلغاء",
+    "profile": "الملف الشخصي",
+    "favorites": "المفضلة",
+    "notifications": "الإشعارات",
+    "privacy": "سياسة الخصوصية",
+    "termsconditions": "الشروط والأحكام",
+    "contactUs": "اتصل بنا",
+    "changeThemeMsg": "تغيير السمة إلى {themeName}",
+    "@changeThemeMsg": {
+        "description": "تغيير السمة إلى {themeName}",
+        "placeholders": {
+            "themeName": {
+                "type": "String",
+                "example": "مظلم"
+            }
+        }
+    },
+    "name": "الاسم",
+    "verifyOtpTitle": "تحقق من الرمز",
+    "otpSentMessage": "أدخل رمز التحقق المكون من 6 أرقام المرسل إلى {email}",
+    "otpCodeHint": "رمز التحقق",
+    "verifyOtpButton": "تحقق من الرمز",
+    "cancelButton": "إلغاء",
+    "invalidOtpResponse": "استجابة تحقق غير صالحة",
+    "genericError": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+    "setNewPasswordTitle": "تعيين كلمة مرور جديدة",
+    "newPasswordHint": "كلمة المرور الجديدة",
+    "confirmPasswordHint": "تأكيد كلمة المرور",
+    "passwordMismatchError": "كلمات المرور غير متطابقة",
+    "resetPasswordButton": "إعادة تعيين كلمة المرور",
+    "genericErrorMessage": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+    "@newPasswordHint": {
+        "description": "نص تلميح لحقل إدخال كلمة المرور الجديدة"
+    },
+    "@confirmPasswordHint": {
+        "description": "نص تلميح لحقل تأكيد كلمة المرور"
+    },
+    "@passwordMismatchError": {
+        "description": "رسالة خطأ عندما لا تتطابق كلمات المرور"
+    },
+    "passwordNotMatch": "كلمات المرور غير متطابقة",
+    "loginWithGoogle": "تسجيل الدخول باستخدام جوجل",
+    "dontHaveAccount": "ليس لديك حساب؟ ",
+    "continueAsGuest": "المتابعة كضيف",
+    "@email": {
+        "description": "نص تلميح لحقل البريد الإلكتروني"
+    },
+    "@password": {
+        "description": "نص تلميح لحقل كلمة المرور"
+    },
+    "@forgotPassword": {
+        "description": "نص رابط نسيت كلمة المرور"
+    },
+    "@loginWithGoogle": {
+        "description": "نص زر تسجيل الدخول بجوجل"
+    },
+    "haveAccount": "هل لديك حساب بالفعل؟",
+    "activityDetailsTitle": "التفاصيل",
+    "workingHours": "ساعات العمل: {openingTime} - {closingTime}",
+    "@workingHours": {
+        "description": "نص يوضح ساعات عمل عربة الطعام",
+        "placeholders": {
+            "openingTime": {},
+            "closingTime": {}
+        }
+    },
+    "addressTab": "المعلومات",
+    "foodMenuTab": "قائمة الطعام",
+    "reviewsTab": "التقييمات",
+    "failedToLoadFoodTruck": "فشل تحميل عربة الطعام: {error}",
+    "@failedToLoadFoodTruck": {
+        "description": "رسالة خطأ عند فشل تحميل عربة الطعام",
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "locationTitle": "الموقع",
+    "locationServicesDisabled": "خدمات الموقع معطلة.",
+    "locationPermissionsDenied": "تم رفض أذونات الموقع",
+    "locationPermissionsPermanentlyDenied": "تم رفض أذونات الموقع بشكل دائم، لا يمكننا طلب الأذونات.",
+    "couldNotGetLocation": "تعذر الحصول على الموقع: {error}",
+    "@couldNotGetLocation": {
+        "description": "رسالة خطأ عندما لا يمكن الحصول على الموقع",
+        "placeholders": {
+            "error": {}
+        }
+    },
+    "currentLocationButton": "الموقع الحالي",
+    "menuItemsTitle": "عناصر القائمة",
+    "itemNameRequired": "اسم العنصر*",
+    "itemDescription": "الوصف",
+    "nameRequiredError": "الاسم مطلوب",
+    "addImageButton": "إضافة صورة",
+    "addMenuItemButton": "إضافة عنصر قائمة",
+    "photosTitle": "الصور",
+    "deleteImageDialogTitle": "حذف الصورة",
+    "deleteImageDialogContent": "هل أنت متأكد أنك تريد حذف هذه الصورة؟",
+    "deleteButton": "حذف",
+    "addPhotosButton": "إضافة صور",
+    "failedLoadFoodTruck": "فشل تحميل عربة الطعام!",
+    "details": "التفاصيل",
+    "workingHour": "ساعات العمل: {hour}",
+    "@workingHour": {
+        "placeholders": {
+            "hour": {}
+        }
+    },
+    "address": "العنوان",
+    "foodMenu": "قائمة الطعام",
+    "review": "التقييمات",
+    "mapLocation": "موقع الخريطة",
+    "tapForLocation": "اضغط للحصول على الاتجاهات",
+    "shareLocation": "مشاركة الموقع",
+    "getDirection": "الحصول على الاتجاهات",
+    "writeReview": "كتابة تقييم",
+    "rating": "التقييم",
+    "comment": "تعليق",
+    "required": "مطلوب",
+    "I_aggree_to": "باستخدام التطبيق، فإنك توافق على ",
+    "and": " و ",
+    "atleastOnePhoto": "الرجاء إضافة صورة واحدة على الأقل",
+    "addTruck": "إضافة عربة طعام",
+    "editTruck": "تعديل عربة طعام",
+    "truckDetails": "تفاصيل العربة",
+    "description": "الوصف",
+    "category": "الفئات",
+    "subCategories": "الفئات الفرعية",
+    "openingTime": "وقت الفتح",
+    "closingTime": "وقت الإغلاق",
+    "contactInfo": "معلومات الاتصال",
+    "phoneNumber": "رقم الهاتف",
+    "website": "الموقع الإلكتروني",
+    "create": "إنشاء",
+    "update": "تحديث",
+    "clickToDetails": "انقر لعرض التفاصيل",
+    "contactUsTitle": "نود أن نسمع منك!",
+    "message": "الرسالة",
+    "send": "إرسال",
+    "messageSent": "تم إرسال الرسالة!",
+    "noFavorites": "لا توجد مفضلات بعد",
+    "markAllRead": "وضع علامة مقروء للكل",
+    "noNotifications": "لا توجد إشعارات بعد",
+    "loginGoogle": "تسجيل الدخول باستخدام جوجل",
+    "search": "البحث عن شاحنات الطعام",
+    "edit": "يحرر",
+    "yourFoodTruck": "متجرك أو شاحنة طعامك",
+    "deleteFoodTruck": "حذف شاحنة الطعام",
+    "areYouSureDeleteFoodTruck": "هل أنت متأكد أنك تريد حذف شاحنة الطعام هذه؟",
+    "selectTime": "اختر الوقت",
+    "offDay": "يوم عطلة",
+    "openNow": "مفتوح الآن",
+    "closedNow": "مغلق الآن",
+    "phoneCopied": "تم نسخ رقم الهاتف إلى الحافظة",
+    "contactUsFooter": "إذا كان لديك أي استفسارات أو تحتاج إلى مساعدة، فلا تتردد في الاتصال بنا عبر البريد الإلكتروني على",
+    "restaurant_type": "نوع المطعم",
+    "filter": "تصفية",
+    "applyFilters": "تطبيق الفلاتر",
+    "clearFilters": "مسح الفلاتر",
+    "filterByType": "تصفية حسب النوع",
+    "noFoodTrucksFound": "لم يتم العثور على أي عنصر",
+    "deleteAccount": "حذف الحساب",
+    "deleteAccountMessage": "هل أنت متأكد من رغبتك في حذف حسابك؟ لا يمكن التراجع عن هذا الإجراء، وسيتم حذف جميع بياناتك نهائيًا.",
+    "timeConflict": "صراع الوقت",
+    "openAfterCloseErrorMsg": "وقت الافتتاح الذي اخترته يقع بعد وقت الإغلاق. ماذا تريد أن تفعل؟",
+    "closeBeforeOpenErrorMsg": "وقت الإغلاق الذي حددته يسبق وقت الافتتاح. ماذا تريد أن تفعل؟",
+    "signinWithApple": "تسجيل الدخول باستخدام Apple",
+    "applyToAllDays": "ينطبق على جميع الأيام",
+    "selectLocation": "حدد الموقع",
+    "fullScreen": "شاشة كاملة",
+    "failedToLoad": "فشل التحميل",
+    "confirm": "تأكيد",
+    "signinwithapple": "تسجيل الدخول باستخدام Apple",
+    "addReview": "إضافة تقييم",
+    "areYouSureYouWantToDeleteThisReview": "هل أنت متأكد أنك تريد حذف هذا التقييم؟",
+    "confirmDelete": "تأكيد الحذف",
+    "reviewDeleted": "تم حذف التقييم",
+    "noReviews": "لا توجد تقييمات بعد",
+    "areYouSureToExit": "هل أنت متأكد أنك تريد الخروج من التطبيق؟",
+    "yes": "نعم",
+    "no": "لا",
+    "selectImageSource": "اختر مصدر الصورة",
+    "camera": "الكاميرا",
+    "gallery": "المعرض",
+    "viewDetails": "عرض التفاصيل"
+}

@@ -1,0 +1,1 @@
+class HttpClientRetryException implements Exception {}

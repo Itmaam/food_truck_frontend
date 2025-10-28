@@ -1,0 +1,28 @@
+{
+  "recommendations": [
+    "alexisvt.flutter-snippets",
+    "circlecodesolution.ccs-flutter-color",
+    "dart-code.dart-code",
+    "dart-code.flutter",
+    "esskar.vscode-flutter-i18n-json",
+    "localizely.flutter-intl",
+    "marcelovelasquez.flutter-tree",
+    "nash.awesome-flutter-snippets",
+    "google.arb-editor",
+    "luanpotter.dart-import",
+    "oscarcs.dart-syntax-highlighting-only",
+    "sanaajani.taskrunnercode",
+    "fabiospampinato.vscode-terminals"
+  ],
+  "unwantedRecommendations": [
+    "bmewburn.vscode-intelephense-client",
+    "bradlc.vscode-tailwindcss",
+    "editorconfig.editorconfig",
+    "ikappas.composer",
+    "laravel.vscode-laravel",
+    "linyang95.php-symbols",
+    "mehedidracula.php-namespace-resolver",
+    "neilbrayfield.php-docblocker",
+    "xdebug.php-debug"
+  ]
+}
