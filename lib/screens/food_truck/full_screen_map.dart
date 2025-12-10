@@ -21,7 +21,9 @@ class _FullScreenMapState extends State<FullScreenMap> {
   String _mapStyle = '';
 
   Future<void> _loadMapStyle() async {
-    _mapStyle = await rootBundle.loadString('assets/map_json/map_style_icon.json');
+    _mapStyle = await rootBundle.loadString(
+      'assets/map_json/map_style_icon.json',
+    );
   }
 
   @override
@@ -48,7 +50,9 @@ class _FullScreenMapState extends State<FullScreenMap> {
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).selectLocation),
-        actions: [IconButton(icon: const Icon(Icons.check), onPressed: _onConfirm)],
+        actions: [
+          IconButton(icon: const Icon(Icons.check), onPressed: _onConfirm),
+        ],
       ),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(target: _location, zoom: 15),
@@ -72,13 +76,24 @@ class _FullScreenMapState extends State<FullScreenMap> {
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(
-        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(context.theme.colorScheme.success)),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(
+            context.theme.colorScheme.success,
+          ),
+        ),
         onPressed: _onConfirm,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: AppSpacing.medium),
+          padding: const EdgeInsets.symmetric(
+            vertical: 8.0,
+            horizontal: AppSpacing.medium,
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: [Icon(Icons.check), const SizedBox(width: AppSpacing.small), Text(S.of(context).confirm)],
+            children: [
+              Icon(Icons.check),
+              const SizedBox(width: AppSpacing.small),
+              Text(S.of(context).confirm),
+            ],
           ),
         ),
       ),

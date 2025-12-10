@@ -212,8 +212,8 @@ class _AddEditActivityScreenState extends State<AddEditActivityScreen> {
           latitude: _selectedLocation.latitude,
           longitude: _selectedLocation.longitude,
           categories: _selectedCategories.map((c) => c).toList(),
-          sub_categories: _selectedSubCategories.map((sc) => sc).toList(),
-          menu_items: menuItems,
+          subCategories: _selectedSubCategories.map((sc) => sc).toList(),
+          menuItems: menuItems,
           workingHours: _workingHours,
         );
 
@@ -272,7 +272,7 @@ class _AddEditActivityScreenState extends State<AddEditActivityScreen> {
           // Handle new image upload
           if (item.id == 0) {
             // Find matching created menu item
-            final createdItem = foodTruck.menu_items?.firstWhere(
+            final createdItem = foodTruck.menuItems?.firstWhere(
               (m) => m.name == item.name && m.description == item.description,
               orElse: () => MenuItem(id: 0, foodTruckId: 0, name: '', description: ''),
             );
@@ -500,17 +500,12 @@ class _AddEditActivityScreenState extends State<AddEditActivityScreen> {
                           name: 'phone',
                           decoration: InputDecoration(labelText: S.of(context).phoneNumber),
                           keyboardType: TextInputType.phone,
-                          validator: FormBuilderValidators.compose([
-                            FormBuilderValidators.required(),
-                            FormBuilderValidators.numeric(),
-                          ]),
                         ),
                         const SizedBox(height: AppSpacing.medium),
                         FormBuilderTextField(
                           name: 'website',
                           decoration: InputDecoration(prefix: Text('https://'), labelText: S.of(context).website),
                           keyboardType: TextInputType.url,
-                          validator: FormBuilderValidators.url(),
                         ),
                         const SizedBox(height: 16),
 

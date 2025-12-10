@@ -12,7 +12,11 @@ class LocationSection extends StatefulWidget {
   final LatLng? initialLocation;
   final ValueChanged<LatLng> onLocationChanged;
 
-  const LocationSection({super.key, this.initialLocation, required this.onLocationChanged});
+  const LocationSection({
+    super.key,
+    this.initialLocation,
+    required this.onLocationChanged,
+  });
 
   @override
   State<LocationSection> createState() => _LocationSectionState();
@@ -26,7 +30,9 @@ class _LocationSectionState extends State<LocationSection> {
   String _mapStyle = '';
 
   Future<void> _loadMapStyle() async {
-    _mapStyle = await rootBundle.loadString('assets/map_json/map_style_icon.json');
+    _mapStyle = await rootBundle.loadString(
+      'assets/map_json/map_style_icon.json',
+    );
   }
 
   Future<void> _initializeMap() async {
@@ -73,7 +79,8 @@ class _LocationSectionState extends State<LocationSection> {
 
       if (permission == LocationPermission.deniedForever) {
         setState(() {
-          _error = S.of(context).locationPermissionsPermanentlyDenied.toString();
+          _error =
+              S.of(context).locationPermissionsPermanentlyDenied.toString();
           _isLoading = false;
         });
         return;
@@ -88,7 +95,11 @@ class _LocationSectionState extends State<LocationSection> {
       widget.onLocationChanged(_selectedLocation);
     } catch (e) {
       setState(() {
-        _error = S.of(context).couldNotGetLocation(S.of(context).failedToLoad).toString();
+        _error =
+            S
+                .of(context)
+                .couldNotGetLocation(S.of(context).failedToLoad)
+                .toString();
         _isLoading = false;
       });
     }
@@ -108,7 +119,9 @@ class _LocationSectionState extends State<LocationSection> {
 
   Future<void> _moveToCurrentLocation() async {
     if (_mapController != null) {
-      await _mapController!.animateCamera(CameraUpdate.newLatLngZoom(_selectedLocation, 15));
+      await _mapController!.animateCamera(
+        CameraUpdate.newLatLngZoom(_selectedLocation, 15),
+      );
     }
   }
 
@@ -132,7 +145,9 @@ class _LocationSectionState extends State<LocationSection> {
   Future<void> _fullScreen() async {
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => FullScreenMap(initialLocation: _selectedLocation)),
+      MaterialPageRoute(
+        builder: (_) => FullScreenMap(initialLocation: _selectedLocation),
+      ),
     );
     if (result != null && result is LatLng) {
       _updateLocation(result);
@@ -146,7 +161,10 @@ class _LocationSectionState extends State<LocationSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(lang.locationTitle, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          lang.locationTitle,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: 8),
 
         if (_isLoading)
@@ -159,7 +177,10 @@ class _LocationSectionState extends State<LocationSection> {
             child: Stack(
               children: [
                 GoogleMap(
-                  initialCameraPosition: CameraPosition(target: _selectedLocation, zoom: 15),
+                  initialCameraPosition: CameraPosition(
+                    target: _selectedLocation,
+                    zoom: 15,
+                  ),
                   onMapCreated: _onMapCreated,
                   myLocationEnabled: false,
                   myLocationButtonEnabled: false,
@@ -177,7 +198,9 @@ class _LocationSectionState extends State<LocationSection> {
                 ),
 
                 // Fixed center pin
-                const Center(child: Icon(Icons.location_pin, size: 50, color: Colors.red)),
+                const Center(
+                  child: Icon(Icons.location_pin, size: 50, color: Colors.red),
+                ),
 
                 // Custom zoom + full screen controls
                 Positioned(

@@ -9,7 +9,11 @@ class WorkingHoursSection extends StatefulWidget {
   final List<WorkingHours> initialHours;
   final Function(List<WorkingHours>) onHoursChanged;
 
-  const WorkingHoursSection({super.key, required this.initialHours, required this.onHoursChanged});
+  const WorkingHoursSection({
+    super.key,
+    required this.initialHours,
+    required this.onHoursChanged,
+  });
 
   @override
   State<WorkingHoursSection> createState() => _WorkingHoursSectionState();
@@ -21,7 +25,9 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
   @override
   void initState() {
     super.initState();
-    _workingHours = List.from(widget.initialHours); // Create a copy to avoid reference issues
+    _workingHours = List.from(
+      widget.initialHours,
+    ); // Create a copy to avoid reference issues
   }
 
   @override
@@ -33,8 +39,15 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
     }
   }
 
-  Future<void> _selectTime(BuildContext context, bool isOpening, int index) async {
-    final currentTime = isOpening ? _workingHours[index].openingTime : _workingHours[index].closingTime;
+  Future<void> _selectTime(
+    BuildContext context,
+    bool isOpening,
+    int index,
+  ) async {
+    final currentTime =
+        isOpening
+            ? _workingHours[index].openingTime
+            : _workingHours[index].closingTime;
 
     // Use current time if available, otherwise use a reasonable default based on opening/closing
     final defaultTime =
@@ -54,7 +67,9 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
               onSurface: Colors.black,
             ),
             timePickerTheme: TimePickerThemeData(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
             ),
           ),
           child: child!,
@@ -68,16 +83,28 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
           _workingHours[index].openingTime = picked;
           // Only show warning if closing time exists and is before opening time
           final closingTime = _workingHours[index].closingTime;
-          if (closingTime != null && _isTimeBeforeOrEqual(closingTime, picked)) {
-            _showTimeConflictDialog(context, isOpening: true, index: index, selectedTime: picked);
+          if (closingTime != null &&
+              _isTimeBeforeOrEqual(closingTime, picked)) {
+            _showTimeConflictDialog(
+              context,
+              isOpening: true,
+              index: index,
+              selectedTime: picked,
+            );
             return; // Don't save the time yet, let user decide
           }
         } else {
           _workingHours[index].closingTime = picked;
           // Only show warning if opening time exists and is after closing time
           final openingTime = _workingHours[index].openingTime;
-          if (openingTime != null && _isTimeBeforeOrEqual(picked, openingTime)) {
-            _showTimeConflictDialog(context, isOpening: false, index: index, selectedTime: picked);
+          if (openingTime != null &&
+              _isTimeBeforeOrEqual(picked, openingTime)) {
+            _showTimeConflictDialog(
+              context,
+              isOpening: false,
+              index: index,
+              selectedTime: picked,
+            );
             return; // Don't save the time yet, let user decide
           }
         }
@@ -105,11 +132,24 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(''),
-          content: Text(isOpening ? S.of(context).openAfterCloseErrorMsg : S.of(context).openAfterCloseErrorMsg),
+          content: Text(
+            isOpening
+                ? S.of(context).openAfterCloseErrorMsg
+                : S.of(context).openAfterCloseErrorMsg,
+          ),
           actions: [
-            TextButton(onPressed: () => Navigator.of(context).pop('cancel'), child: Text('Cancel')),
-            TextButton(onPressed: () => Navigator.of(context).pop('keep'), child: Text('Keep This Time')),
-            TextButton(onPressed: () => Navigator.of(context).pop('adjust'), child: Text('Auto Adjust Other Time')),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop('cancel'),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop('keep'),
+              child: Text('Keep This Time'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop('adjust'),
+              child: Text('Auto Adjust Other Time'),
+            ),
           ],
         );
       },
@@ -129,13 +169,21 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
           if (isOpening) {
             _workingHours[index].openingTime = selectedTime;
             // Set closing time to 8 hours after opening time, or 22:00 if that's too late
-            final newClosingHour = (selectedTime.hour + 8) > 22 ? 22 : selectedTime.hour + 8;
-            _workingHours[index].closingTime = TimeOfDay(hour: newClosingHour, minute: selectedTime.minute);
+            final newClosingHour =
+                (selectedTime.hour + 8) > 22 ? 22 : selectedTime.hour + 8;
+            _workingHours[index].closingTime = TimeOfDay(
+              hour: newClosingHour,
+              minute: selectedTime.minute,
+            );
           } else {
             _workingHours[index].closingTime = selectedTime;
             // Set opening time to 8 hours before closing time, or 6:00 if that's too early
-            final newOpeningHour = (selectedTime.hour - 8) < 6 ? 6 : selectedTime.hour - 8;
-            _workingHours[index].openingTime = TimeOfDay(hour: newOpeningHour, minute: selectedTime.minute);
+            final newOpeningHour =
+                (selectedTime.hour - 8) < 6 ? 6 : selectedTime.hour - 8;
+            _workingHours[index].openingTime = TimeOfDay(
+              hour: newOpeningHour,
+              minute: selectedTime.minute,
+            );
           }
         }
         widget.onHoursChanged(_workingHours);
@@ -149,7 +197,10 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(S.of(context).workingHour(''), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          S.of(context).workingHour(''),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         const SizedBox(height: AppSpacing.small),
 
         // Render all day rows
@@ -167,9 +218,16 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
                       flex: 1,
                       child: Consumer<LanguageProvider>(
                         builder: (context, languageProvider, child) {
-                          final languageCode = languageProvider.locale.languageCode;
-                          final displayDay = getLocalizedDayName(day.day, languageCode);
-                          return Text(displayDay, style: TextStyle(fontWeight: FontWeight.bold));
+                          final languageCode =
+                              languageProvider.locale.languageCode;
+                          final displayDay = getLocalizedDayName(
+                            day.day,
+                            languageCode,
+                          );
+                          return Text(
+                            displayDay,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          );
                         },
                       ),
                     ),
@@ -177,11 +235,17 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
                       children: [
                         Checkbox(
                           value: day.isClosed,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                           activeColor: Theme.of(context).primaryColor,
                           checkColor: Colors.white,
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          side: BorderSide(color: Theme.of(context).primaryColor, width: 1.5),
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          side: BorderSide(
+                            color: Theme.of(context).primaryColor,
+                            width: 1.5,
+                          ),
                           onChanged: (value) {
                             setState(() {
                               day.isClosed = value!;
@@ -193,7 +257,13 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
                             });
                           },
                         ),
-                        Text(S.of(context).offDay, style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                        Text(
+                          S.of(context).offDay,
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
 
@@ -206,10 +276,15 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
                             decoration: InputDecoration(
                               labelText: S.of(context).openingTime,
                               border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
                             ),
                             child: Text(
-                              day.openingTime != null ? day.openingTime!.format(context) : S.of(context).selectTime,
+                              day.openingTime != null
+                                  ? day.openingTime!.format(context)
+                                  : S.of(context).selectTime,
                             ),
                           ),
                         ),
@@ -222,10 +297,15 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
                             decoration: InputDecoration(
                               labelText: S.of(context).closingTime,
                               border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
                             ),
                             child: Text(
-                              day.closingTime != null ? day.closingTime!.format(context) : S.of(context).selectTime,
+                              day.closingTime != null
+                                  ? day.closingTime!.format(context)
+                                  : S.of(context).selectTime,
                             ),
                           ),
                         ),
@@ -236,7 +316,8 @@ class _WorkingHoursSectionState extends State<WorkingHoursSection> {
 
                 // Add "Apply to all" button ONLY after the first day
                 if (index == 0 &&
-                    (_workingHours[index].closingTime != null && _workingHours[index].openingTime != null))
+                    (_workingHours[index].closingTime != null &&
+                        _workingHours[index].openingTime != null))
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton.icon(

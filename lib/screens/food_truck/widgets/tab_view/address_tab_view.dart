@@ -25,10 +25,19 @@ class DateTimeUtils {
     DateTime? startDt;
     DateTime? endDt;
     final now = DateTime.now();
-    if (start != null) startDt = DateTime(now.year, now.month, now.day, start.hour, start.minute);
-    if (end != null) endDt = DateTime(now.year, now.month, now.day, end.hour, end.minute);
+    if (start != null)
+      startDt = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        start.hour,
+        start.minute,
+      );
+    if (end != null)
+      endDt = DateTime(now.year, now.month, now.day, end.hour, end.minute);
 
-    final startStr = startDt != null ? DateFormat.jm(localeCode).format(startDt) : '';
+    final startStr =
+        startDt != null ? DateFormat.jm(localeCode).format(startDt) : '';
     final endStr = endDt != null ? DateFormat.jm(localeCode).format(endDt) : '';
 
     // Translate day name if Arabic
@@ -46,7 +55,9 @@ class DateTimeUtils {
       day = daysAr[dayEn] ?? dayEn;
     }
 
-    return startStr.isNotEmpty && endStr.isNotEmpty ? '$day: $startStr - $endStr' : day;
+    return startStr.isNotEmpty && endStr.isNotEmpty
+        ? '$day: $startStr - $endStr'
+        : day;
   }
 }
 
@@ -69,7 +80,9 @@ class _AddressTabViewState extends State<AddressTabView> {
   Future<void> _launchDirections() async {
     final lat = widget.foodTruck.latitude;
     final lng = widget.foodTruck.longitude;
-    final googleMapsUrl = Uri.parse('https://www.google.com/maps/dir/?api=1&destination=$lat,$lng&travelmode=driving');
+    final googleMapsUrl = Uri.parse(
+      'https://www.google.com/maps/dir/?api=1&destination=$lat,$lng&travelmode=driving',
+    );
 
     try {
       if (await canLaunchUrl(googleMapsUrl)) {
@@ -79,7 +92,9 @@ class _AddressTabViewState extends State<AddressTabView> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Could not open Google Maps')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Could not open Google Maps')),
+        );
       }
     }
   }
@@ -87,8 +102,12 @@ class _AddressTabViewState extends State<AddressTabView> {
   Future<void> _shareLocation() async {
     final lat = widget.foodTruck.latitude;
     final lng = widget.foodTruck.longitude;
-    final shareUrl = 'https://www.google.com/maps?q=$lat,$lng&ll=$lat,$lng&z=14';
-    Share.share('check out Nine The 9 Location $shareUrl', subject: 'Nine The 9 Location');
+    final shareUrl =
+        'https://www.google.com/maps?q=$lat,$lng&ll=$lat,$lng&z=14';
+    Share.share(
+      'check out Nine The 9 Location $shareUrl',
+      subject: 'Nine The 9 Location',
+    );
   }
 
   Future<void> _makePhoneCall(String phoneNumber) async {
@@ -96,7 +115,9 @@ class _AddressTabViewState extends State<AddressTabView> {
     if (await canLaunchUrl(launchUri)) {
       await launchUrl(launchUri);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not launch phone call')));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Could not launch phone call')));
     }
   }
 
@@ -116,7 +137,9 @@ class _AddressTabViewState extends State<AddressTabView> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not open website')));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Could not open website')));
       }
     }
   }
@@ -182,7 +205,10 @@ class _AddressTabViewState extends State<AddressTabView> {
 
   @override
   Widget build(BuildContext context) {
-    final truckLocation = LatLng(widget.foodTruck.latitude, widget.foodTruck.longitude);
+    final truckLocation = LatLng(
+      widget.foodTruck.latitude,
+      widget.foodTruck.longitude,
+    );
     final localeCode = Localizations.localeOf(context).languageCode;
 
     return Container(
@@ -194,7 +220,10 @@ class _AddressTabViewState extends State<AddressTabView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(S.of(context).mapLocation, style: context.theme.textTheme.labelLarge),
+          Text(
+            S.of(context).mapLocation,
+            style: context.theme.textTheme.labelLarge,
+          ),
           const SizedBox(height: AppSpacing.small),
           // Map section with fixed height
           SizedBox(
@@ -203,14 +232,20 @@ class _AddressTabViewState extends State<AddressTabView> {
               children: [
                 GoogleMap(
                   key: Key(_uniqueMapId),
-                  initialCameraPosition: CameraPosition(target: truckLocation, zoom: _currentZoom),
+                  initialCameraPosition: CameraPosition(
+                    target: truckLocation,
+                    zoom: _currentZoom,
+                  ),
                   markers: {
                     Marker(
                       icon: _customIcon ?? BitmapDescriptor.defaultMarker,
                       markerId: MarkerId(_uniqueMarkerId),
                       position: truckLocation,
 
-                      infoWindow: InfoWindow(title: widget.foodTruck.name, snippet: S.of(context).tapForLocation),
+                      infoWindow: InfoWindow(
+                        title: widget.foodTruck.name,
+                        snippet: S.of(context).tapForLocation,
+                      ),
                     ),
                   },
                   zoomControlsEnabled: false,
@@ -223,7 +258,11 @@ class _AddressTabViewState extends State<AddressTabView> {
                   bottom: 16,
                   child: Column(
                     children: [
-                      FloatingActionButton.small(heroTag: 'zoomIn', onPressed: _zoomIn, child: const Icon(Icons.add)),
+                      FloatingActionButton.small(
+                        heroTag: 'zoomIn',
+                        onPressed: _zoomIn,
+                        child: const Icon(Icons.add),
+                      ),
                       const SizedBox(height: 8),
                       FloatingActionButton.small(
                         heroTag: 'zoomOut',
@@ -261,14 +300,18 @@ class _AddressTabViewState extends State<AddressTabView> {
                         icon: const Icon(Icons.directions),
                         label: Text(S.of(context).getDirection),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.tertiary,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.tertiary,
                           foregroundColor: Colors.white,
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: AppSpacing.small),
-                  Text(S.of(context).description, style: context.theme.textTheme.labelLarge),
+                  Text(
+                    S.of(context).description,
+                    style: context.theme.textTheme.labelLarge,
+                  ),
                   const SizedBox(height: AppSpacing.small),
                   Text(
                     widget.foodTruck.description,
@@ -278,19 +321,27 @@ class _AddressTabViewState extends State<AddressTabView> {
                   ),
                   const SizedBox(height: AppSpacing.medium),
                   //contact info
-                  Text(S.of(context).contactInfo, style: context.theme.textTheme.labelLarge),
+                  Text(
+                    S.of(context).contactInfo,
+                    style: context.theme.textTheme.labelLarge,
+                  ),
                   const SizedBox(height: AppSpacing.small),
                   Row(
                     children: [
-                      Icon(Icons.phone, color: context.theme.colorScheme.primary),
+                      Icon(
+                        Icons.phone,
+                        color: context.theme.colorScheme.primary,
+                      ),
                       const SizedBox(width: AppSpacing.small),
                       InkWell(
                         onTap: () => _makePhoneCall(widget.foodTruck.phone),
                         onLongPress: () {
-                          Clipboard.setData(ClipboardData(text: widget.foodTruck.phone));
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(content: Text(S.of(context).phoneCopied)));
+                          Clipboard.setData(
+                            ClipboardData(text: widget.foodTruck.phone),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(S.of(context).phoneCopied)),
+                          );
                         },
                         child: Text(
                           widget.foodTruck.phone,
@@ -306,27 +357,38 @@ class _AddressTabViewState extends State<AddressTabView> {
                     ],
                   ),
                   const SizedBox(height: AppSpacing.small),
-                  if (widget.foodTruck.website != null && widget.foodTruck.website!.isNotEmpty)
+                  if (widget.foodTruck.website != null &&
+                      widget.foodTruck.website!.isNotEmpty)
                     Row(
                       children: [
-                        Icon(Icons.web, color: context.theme.colorScheme.primary),
+                        Icon(
+                          Icons.web,
+                          color: context.theme.colorScheme.primary,
+                        ),
                         const SizedBox(width: AppSpacing.small),
                         Expanded(
                           child: InkWell(
-                            onTap: () => _openWebsite(widget.foodTruck.website!),
+                            onTap:
+                                () => _openWebsite(widget.foodTruck.website!),
                             onLongPress: () {
-                              Clipboard.setData(ClipboardData(text: widget.foodTruck.website!));
-                              ScaffoldMessenger.of(
-                                context,
-                              ).showSnackBar(SnackBar(content: Text('Website copied to clipboard')));
+                              Clipboard.setData(
+                                ClipboardData(text: widget.foodTruck.website!),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Website copied to clipboard'),
+                                ),
+                              );
                             },
                             child: Text(
                               widget.foodTruck.website!,
-                              style: context.theme.textTheme.bodyMedium!.copyWith(
-                                color: context.theme.colorScheme.primary,
-                                decoration: TextDecoration.underline,
-                                decorationColor: context.theme.colorScheme.primary,
-                              ),
+                              style: context.theme.textTheme.bodyMedium!
+                                  .copyWith(
+                                    color: context.theme.colorScheme.primary,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor:
+                                        context.theme.colorScheme.primary,
+                                  ),
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -337,7 +399,9 @@ class _AddressTabViewState extends State<AddressTabView> {
                   const SizedBox(height: AppSpacing.medium),
                   Text(
                     S.of(context).workingHour(''),
-                    style: context.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold),
+                    style: context.theme.textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: AppSpacing.small),
 
@@ -348,15 +412,26 @@ class _AddressTabViewState extends State<AddressTabView> {
                     itemBuilder: (context, index) {
                       final wh = widget.foodTruck.workingHours![index];
                       return ListTile(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         style: ListTileStyle.list,
                         leading: Icon(
                           wh.isClosed ? Icons.close : Icons.access_time,
-                          color: wh.isClosed ? Colors.red : context.theme.colorScheme.success,
+                          color:
+                              wh.isClosed
+                                  ? Colors.red
+                                  : context.theme.colorScheme.success,
                         ),
                         title: Text(
                           wh.isClosed
-                              ? DateTimeUtils.formatWorkingHour(wh.day, null, null, localeCode, context)
+                              ? DateTimeUtils.formatWorkingHour(
+                                wh.day,
+                                null,
+                                null,
+                                localeCode,
+                                context,
+                              )
                               : DateTimeUtils.formatWorkingHour(
                                 wh.day,
                                 wh.openingTime,

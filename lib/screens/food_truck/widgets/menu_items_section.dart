@@ -88,7 +88,6 @@ class _MenuItemsSectionState extends State<MenuItemsSection> {
                               controller: _nameControllers[index],
                               decoration: InputDecoration(labelText: lang.menuItemsTitle, border: OutlineInputBorder()),
                               onChanged: (value) => item.name = value,
-                              validator: (value) => value == null || value.isEmpty ? lang.itemNameRequired : null,
                             ),
                             const SizedBox(height: 8),
                             TextFormField(

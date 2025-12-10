@@ -6,7 +6,11 @@ class FavoriteButton extends StatefulWidget {
   final int foodTruckId;
   final double size;
 
-  const FavoriteButton({super.key, required this.foodTruckId, this.size = 24.0});
+  const FavoriteButton({
+    super.key,
+    required this.foodTruckId,
+    this.size = 24.0,
+  });
 
   @override
   State<FavoriteButton> createState() => _FavoriteButtonState();
@@ -25,11 +29,15 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   Future<void> _checkFavoriteStatus() async {
     setState(() => _isLoading = true);
     try {
-      final isFavorite = await AppApi.favoriteApi.checkFavorite(widget.foodTruckId);
+      final isFavorite = await AppApi.favoriteApi.checkFavorite(
+        widget.foodTruckId,
+      );
       setState(() => _isFavorite = isFavorite);
     } catch (e) {
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to check favorite status')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to check favorite status')),
+      );
     } finally {
       setState(() => _isLoading = false);
     }
@@ -37,7 +45,9 @@ class _FavoriteButtonState extends State<FavoriteButton> {
 
   Future<void> _toggleFavorite() async {
     setState(() => _isLoading = true);
-    final isFavorite = await AppApi.favoriteApi.checkFavorite(widget.foodTruckId);
+    final isFavorite = await AppApi.favoriteApi.checkFavorite(
+      widget.foodTruckId,
+    );
     try {
       if (isFavorite) {
         await AppApi.favoriteApi.removeFavorite(widget.foodTruckId);
@@ -55,7 +65,9 @@ class _FavoriteButtonState extends State<FavoriteButton> {
       setState(() {
         _isLoading = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update favorite')));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to update favorite')));
     } finally {
       // setState(() => _isLoading = false);
     }
@@ -66,7 +78,11 @@ class _FavoriteButtonState extends State<FavoriteButton> {
     return IconButton(
       icon:
           _isLoading
-              ? SizedBox(width: widget.size, height: widget.size, child: CircularProgressIndicator(strokeWidth: 2))
+              ? SizedBox(
+                width: widget.size,
+                height: widget.size,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
               : Icon(
                 _isFavorite ? Icons.favorite : Icons.favorite_border,
                 color: _isFavorite ? Colors.red : Colors.grey,

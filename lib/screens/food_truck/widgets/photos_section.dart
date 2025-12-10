@@ -39,14 +39,18 @@ class _PhotosSectionState extends State<PhotosSection> {
             actions: [
               TextButton(
                 onPressed: () async {
-                  final photo = await _picker.pickImage(source: ImageSource.camera);
+                  final photo = await _picker.pickImage(
+                    source: ImageSource.camera,
+                  );
                   Navigator.pop(ctx, photo);
                 },
                 child: Text(S.of(context).camera),
               ),
               TextButton(
                 onPressed: () async {
-                  final photo = await _picker.pickImage(source: ImageSource.gallery);
+                  final photo = await _picker.pickImage(
+                    source: ImageSource.gallery,
+                  );
                   Navigator.pop(ctx, photo);
                 },
                 child: Text(S.of(context).gallery),
@@ -67,7 +71,10 @@ class _PhotosSectionState extends State<PhotosSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(lang.photosTitle, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          lang.photosTitle,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: AppSpacing.small),
 
         if (allImages.isNotEmpty) ...[
@@ -79,11 +86,16 @@ class _PhotosSectionState extends State<PhotosSection> {
                   height: 200,
                   viewportFraction: 1.0,
                   enableInfiniteScroll: false,
-                  onPageChanged: (index, _) => setState(() => _currentImageIndex = index),
+                  onPageChanged:
+                      (index, _) => setState(() => _currentImageIndex = index),
                 ),
                 itemBuilder: (context, index, _) {
                   if (index < widget.existingImageUrls.length) {
-                    return Image.network('${allImages[index]}', width: double.infinity, fit: BoxFit.cover);
+                    return Image.network(
+                      '${allImages[index]}',
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    );
                   } else {
                     return Image.file(
                       widget.photos[index - widget.existingImageUrls.length],
@@ -98,7 +110,10 @@ class _PhotosSectionState extends State<PhotosSection> {
                 right: 8,
                 child: Container(
                   padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(color: Colors.black54, borderRadius: BorderRadius.circular(20)),
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   child: Text(
                     '${_currentImageIndex + 1}/${allImages.length}',
                     style: const TextStyle(color: Colors.white),
@@ -121,8 +136,14 @@ class _PhotosSectionState extends State<PhotosSection> {
                               title: Text(lang.deleteImageDialogTitle),
                               content: Text(lang.deleteImageDialogContent),
                               actions: [
-                                TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(lang.cancelButton)),
-                                TextButton(onPressed: () => Navigator.pop(ctx, true), child: Text(lang.deleteButton)),
+                                TextButton(
+                                  onPressed: () => Navigator.pop(ctx, false),
+                                  child: Text(lang.cancelButton),
+                                ),
+                                TextButton(
+                                  onPressed: () => Navigator.pop(ctx, true),
+                                  child: Text(lang.deleteButton),
+                                ),
                               ],
                             ),
                       );
@@ -132,7 +153,12 @@ class _PhotosSectionState extends State<PhotosSection> {
                     },
                     child: _ImageThumbnail(
                       isSelected: _currentImageIndex == entry.key,
-                      child: Image.network(entry.value, fit: BoxFit.cover, height: 40, width: 50),
+                      child: Image.network(
+                        entry.value,
+                        fit: BoxFit.cover,
+                        height: 40,
+                        width: 50,
+                      ),
                       onDelete: () => widget.onDeleteExistingImage(entry.key),
                     ),
                   );
@@ -141,8 +167,14 @@ class _PhotosSectionState extends State<PhotosSection> {
                   return GestureDetector(
                     onTap: () => widget.onRemovePhoto(entry.key),
                     child: _ImageThumbnail(
-                      isSelected: _currentImageIndex == entry.key + widget.existingImageUrls.length,
-                      child: Image.file(entry.value, fit: BoxFit.cover, height: 40),
+                      isSelected:
+                          _currentImageIndex ==
+                          entry.key + widget.existingImageUrls.length,
+                      child: Image.file(
+                        entry.value,
+                        fit: BoxFit.cover,
+                        height: 40,
+                      ),
                       onDelete: () => widget.onRemovePhoto(entry.key),
                     ),
                   );
@@ -168,7 +200,11 @@ class _ImageThumbnail extends StatelessWidget {
   final Widget child;
   final VoidCallback onDelete;
 
-  const _ImageThumbnail({required this.isSelected, required this.child, required this.onDelete});
+  const _ImageThumbnail({
+    required this.isSelected,
+    required this.child,
+    required this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -177,14 +213,20 @@ class _ImageThumbnail extends StatelessWidget {
       height: 40,
       margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
       decoration: BoxDecoration(
-        border: Border.all(color: isSelected ? Theme.of(context).primaryColor : Colors.grey, width: 2),
+        border: Border.all(
+          color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
+          width: 2,
+        ),
       ),
       child: Stack(
         children: [
           child,
           InkWell(
             onTap: () => onDelete.call(),
-            child: const Align(alignment: Alignment.topRight, child: Icon(Icons.close, color: Colors.red, size: 16)),
+            child: const Align(
+              alignment: Alignment.topRight,
+              child: Icon(Icons.close, color: Colors.red, size: 16),
+            ),
           ),
         ],
       ),
