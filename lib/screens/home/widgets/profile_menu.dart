@@ -7,7 +7,6 @@ import 'package:food_truck_finder_user_app/language_provider.dart';
 import 'package:food_truck_finder_user_app/localization/widgets/switch_language.dart';
 import 'package:food_truck_finder_user_app/ui_helpers/constants/app_spacing.dart';
 import 'package:food_truck_finder_user_app/ui_helpers/theme/manager/theme_manager.dart';
-import 'package:food_truck_finder_user_app/ui_helpers/theme/theme_context_extension.dart';
 import 'package:go_router/go_router.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
@@ -24,6 +23,12 @@ class ProfileMenu extends StatefulWidget {
 class _ProfileMenuState extends State<ProfileMenu> {
   void _handleMenuAction(String action) async {
     switch (action) {
+      case 'login':
+        context.push('/auth/login');
+        break;
+      case 'signup':
+        context.push('/auth/signup');
+        break;
       case 'change_theme':
         ThemeManager.instance.changeTheme(ThemeManager.instance.isDark ? ThemeEnum.light : ThemeEnum.dark);
         break;
@@ -115,19 +120,18 @@ class _ProfileMenuState extends State<ProfileMenu> {
   @override
   Widget build(BuildContext context) {
     final lang = S.of(context);
+    final primaryColor = Theme.of(context).primaryColor;
 
     return Consumer<LanguageProvider>(
       builder: (context, languageProvider, _) {
         return PopupMenuButton<String>(
-          icon:
+          offset: Offset(0, 50),
+          child:
               UserAuthManager.isLoggedIn
                   ? CircleAvatar(backgroundImage: NetworkImage(UserAuthManager.currentUser!.image))
                   : Container(
                     padding: EdgeInsets.all(AppSpacing.small),
-                    decoration: BoxDecoration(
-                      color: context.theme.primaryColor,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+                    decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(20)),
                     child: badges.Badge(
                       position: badges.BadgePosition.topEnd(top: -20, end: -12),
                       badgeStyle: badges.BadgeStyle(shape: badges.BadgeShape.circle, badgeColor: Colors.red),
@@ -135,9 +139,27 @@ class _ProfileMenuState extends State<ProfileMenu> {
                       badgeContent: Text('!', style: TextStyle(color: Colors.white)),
                       child: const Icon(Icons.person_2_rounded, color: Colors.white),
                     ),
-                  ), // Clean three-dot icon
+                  ),
           itemBuilder:
               (BuildContext context) => <PopupMenuEntry<String>>[
+                // Show Login/Signup for guests
+                if (!UserAuthManager.isLoggedIn)
+                  PopupMenuItem<String>(
+                    value: 'login',
+                    child: ListTile(
+                      leading: Icon(Icons.login, color: primaryColor),
+                      title: Text(lang.login, style: TextStyle(fontWeight: FontWeight.bold, color: primaryColor)),
+                    ),
+                  ),
+                if (!UserAuthManager.isLoggedIn)
+                  PopupMenuItem<String>(
+                    value: 'signup',
+                    child: ListTile(
+                      leading: Icon(Icons.person_add, color: primaryColor),
+                      title: Text(lang.signup, style: TextStyle(fontWeight: FontWeight.bold, color: primaryColor)),
+                    ),
+                  ),
+                if (!UserAuthManager.isLoggedIn) PopupMenuDivider(),
                 PopupMenuItem<String>(
                   value: 'Profile',
                   child: ListTile(leading: Icon(Icons.person), title: Text(lang.profile)),

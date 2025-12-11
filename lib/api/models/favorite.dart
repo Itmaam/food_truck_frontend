@@ -24,8 +24,14 @@ class Favorite {
       userId: json['user_id'],
       foodTruckId: json['food_truck_id'],
       createdAt: DateTime.parse(json['created_at']),
-      updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null,
-      foodTruck: json['food_truck'] != null ? FoodTruck.fromJson(json['food_truck']) : null,
+      updatedAt:
+          json['updated_at'] != null
+              ? DateTime.parse(json['updated_at'])
+              : null,
+      foodTruck:
+          json['food_truck'] != null
+              ? FoodTruck.fromJson(json['food_truck'])
+              : null,
     );
   }
 

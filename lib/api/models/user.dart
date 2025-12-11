@@ -5,10 +5,17 @@ class User {
   final String? imagePath;
   final int status;
 
-  String get image => imagePath ?? 'https://api.dicebear.com/7.x/initials/png?seed=$name';
+  String get image =>
+      imagePath ?? 'https://api.dicebear.com/7.x/initials/png?seed=$name';
   bool get isActive => status == 1;
 
-  User({required this.id, this.email, this.name, this.imagePath, this.status = 0});
+  User({
+    required this.id,
+    this.email,
+    this.name,
+    this.imagePath,
+    this.status = 0,
+  });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -21,6 +28,12 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'email': email, 'name': name, 'image_path': imagePath, 'status': status};
+    return {
+      'id': id,
+      'email': email,
+      'name': name,
+      'image_path': imagePath,
+      'status': status,
+    };
   }
 }

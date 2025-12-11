@@ -71,7 +71,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         automaticallyImplyLeading: true,
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(S.of(context).contactUs),
-        leading: IconButton(onPressed: () => context.pop(), icon: Icon(Icons.arrow_back)),
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: Icon(Icons.arrow_back),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -82,25 +85,43 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 key: formKey,
                 child: ListView(
                   children: [
-                    Text(S.of(context).contactUsTitle, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text(
+                      S.of(context).contactUsTitle,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(height: 20),
                     FormBuilderTextField(
                       name: 'name',
-                      decoration: InputDecoration(labelText: S.of(context).name),
-                      validator: (value) => value!.isEmpty ? S.of(context).required : null,
+                      decoration: InputDecoration(
+                        labelText: S.of(context).name,
+                      ),
+                      validator:
+                          (value) =>
+                              value!.isEmpty ? S.of(context).required : null,
                     ),
                     const SizedBox(height: 12),
                     FormBuilderTextField(
                       name: 'email',
-                      decoration: InputDecoration(labelText: S.of(context).email),
-                      validator: (value) => value!.isEmpty ? S.of(context).required : null,
+                      decoration: InputDecoration(
+                        labelText: S.of(context).email,
+                      ),
+                      validator:
+                          (value) =>
+                              value!.isEmpty ? S.of(context).required : null,
                     ),
                     const SizedBox(height: 12),
                     FormBuilderTextField(
                       name: 'message',
-                      decoration: InputDecoration(labelText: S.of(context).message),
+                      decoration: InputDecoration(
+                        labelText: S.of(context).message,
+                      ),
                       maxLines: 5,
-                      validator: (value) => value!.isEmpty ? S.of(context).required : null,
+                      validator:
+                          (value) =>
+                              value!.isEmpty ? S.of(context).required : null,
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton.icon(
@@ -121,9 +142,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                               'message': formData['message'],
                             },
                           );
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(content: Text(S.of(context).messageSent)));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(S.of(context).messageSent)),
+                          );
                         }
                       },
                     ),
@@ -134,7 +155,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             SizedBox(height: AppSpacing.medium),
             if (!isLoading)
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: AppSpacing.medium, horizontal: AppSpacing.small),
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppSpacing.medium,
+                  horizontal: AppSpacing.small,
+                ),
                 child: Column(
                   children: [
                     RichText(
@@ -157,10 +181,15 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             recognizer:
                                 TapGestureRecognizer()
                                   ..onTap = () {
-                                    _openUrl(Uri(scheme: 'mailto', path: contactEmail));
+                                    _openUrl(
+                                      Uri(scheme: 'mailto', path: contactEmail),
+                                    );
                                   },
                           ),
-                          TextSpan(text: ' | ', style: TextStyle(color: Colors.grey)),
+                          TextSpan(
+                            text: ' | ',
+                            style: TextStyle(color: Colors.grey),
+                          ),
                           TextSpan(
                             text: ' $contactPhone',
                             style: TextStyle(
@@ -171,7 +200,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             recognizer:
                                 TapGestureRecognizer()
                                   ..onTap = () async {
-                                    await _openUrl(Uri(scheme: 'tel', path: contactPhone));
+                                    await _openUrl(
+                                      Uri(scheme: 'tel', path: contactPhone),
+                                    );
                                   },
                           ),
                           TextSpan(
@@ -184,14 +215,20 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     const SizedBox(height: 8),
                     GestureDetector(
                       onTap: () async {
-                        final phone = contactPhone.replaceAll(RegExp(r'\D'), '');
+                        final phone = contactPhone.replaceAll(
+                          RegExp(r'\D'),
+                          '',
+                        );
                         final whatsappUrl = Uri.parse('https://wa.me/$phone');
                         await _openUrl(whatsappUrl);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset('assets/svgs/whatsapp-svgrepo-com.svg', color: Colors.green),
+                          SvgPicture.asset(
+                            'assets/svgs/whatsapp-svgrepo-com.svg',
+                            color: Colors.green,
+                          ),
                           const SizedBox(width: 8),
                           Text(
                             contactPhone,

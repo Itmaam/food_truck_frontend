@@ -4,7 +4,10 @@ import 'package:food_truck_finder_user_app/api/models/favorite.dart';
 class FavoriteApi extends BaseCRUDApi<Favorite> {
   FavoriteApi(String apiUrl) : super('$apiUrl/favorites');
   Future<bool> addFavorite(int foodTruckId) async {
-    final response = await httpClient.post('', body: {'food_truck_id': foodTruckId});
+    final response = await httpClient.post(
+      '',
+      body: {'food_truck_id': foodTruckId},
+    );
     if (response != null) {
       return true;
     } else {

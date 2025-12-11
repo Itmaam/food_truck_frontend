@@ -11,7 +11,8 @@ class TermsAndConditionsScreen extends StatefulWidget {
   const TermsAndConditionsScreen({super.key});
 
   @override
-  State<TermsAndConditionsScreen> createState() => _TermsAndConditionsScreenState();
+  State<TermsAndConditionsScreen> createState() =>
+      _TermsAndConditionsScreenState();
 }
 
 class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
@@ -24,7 +25,9 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
     HttpClient client = HttpClient();
     try {
       // Example API call to fetch terms and conditions
-      final response = await client.get('${AppUrl.apiUrl}/terms-and-conditions');
+      final response = await client.get(
+        '${AppUrl.apiUrl}/terms-and-conditions',
+      );
       setState(() {
         termsAndConditions = response['content'] ?? '';
         termsAndConditionsAR = response['content_ar'] ?? '';
@@ -52,23 +55,37 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
         automaticallyImplyLeading: true,
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(S.of(context).termsconditions),
-        leading: IconButton(onPressed: () => context.pop(), icon: Icon(Icons.arrow_back)),
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: Icon(Icons.arrow_back),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            Text(S.of(context).termsconditions, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text(
+              S.of(context).termsconditions,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 16),
             if (isLoading)
               Center(child: CircularProgressIndicator())
             else
               Html(
                 data:
-                    Provider.of<LanguageProvider>(context).locale.languageCode == 'ar'
+                    Provider.of<LanguageProvider>(
+                              context,
+                            ).locale.languageCode ==
+                            'ar'
                         ? termsAndConditionsAR
                         : termsAndConditions,
-                style: {"body": Style(fontSize: FontSize(16.0), lineHeight: LineHeight(1.5))},
+                style: {
+                  "body": Style(
+                    fontSize: FontSize(16.0),
+                    lineHeight: LineHeight(1.5),
+                  ),
+                },
               ),
             SizedBox(height: 16),
           ],

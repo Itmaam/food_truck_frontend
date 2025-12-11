@@ -108,15 +108,8 @@ class UserAuthManager {
         throw AuthException('Refresh token is missing.');
       }
 
-      // final (newBearerToken, newRefreshToken, changePasswordToken) =
-      //     await AmigoalApi.user
-      //         .refreshToken(currentUser!.email ?? '', refreshToken);
-
-      // await _saveSessionTokens(
-      //   newBearerToken,
-      //   newRefreshToken,
-      //   changePasswordToken,
-      // );
+      // TODO: Implement token refresh endpoint
+      // Currently commented out - needs backend implementation
     }
 
     if (_refreshBearerTokenFuture != null) {
@@ -175,11 +168,6 @@ class UserAuthManager {
     final user = _readCachedUser();
     return user;
   }
-
-  // static bool get isAdmin {
-  //   final user = currentUser;
-  //   return user!.types.contains(UserType.Admin);
-  // }
 
   static bool get isLoggedIn {
     return _readCachedUser() != null;

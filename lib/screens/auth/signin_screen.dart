@@ -133,7 +133,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   },
                   label: lang.loginWithGoogle,
                 ),
-                const SizedBox(height: AppSpacing.small),
+                const SizedBox(height: AppSpacing.medium),
                 if (Platform.isIOS)
                   SignInWithAppleButton(
                     text: lang.signinwithapple,

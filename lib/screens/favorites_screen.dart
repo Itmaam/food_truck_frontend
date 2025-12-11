@@ -38,14 +38,18 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         automaticallyImplyLeading: true,
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(S.of(context).favorites),
-        leading: IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back)),
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
       body: RefreshIndicator(
         onRefresh: _refreshFavorites,
         child: FutureBuilder<List<Favorite>>(
           future: _favoritesFuture,
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting && !_isLoading) {
+            if (snapshot.connectionState == ConnectionState.waiting &&
+                !_isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
 
@@ -64,7 +68,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 return ListTile(
                   leading:
                       foodTruck!.images?.isNotEmpty == true
-                          ? Image.network(foodTruck.images!.first.imageUrl, width: 50, height: 50, fit: BoxFit.cover)
+                          ? Image.network(
+                            foodTruck.images!.first.imageUrl,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                          )
                           : const Icon(Icons.fastfood),
                   title: Text(foodTruck.name),
                   subtitle: Text(foodTruck.description),

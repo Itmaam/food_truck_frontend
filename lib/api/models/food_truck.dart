@@ -21,8 +21,8 @@ class FoodTruck {
   final double longitude;
   final List<FoodTruckImage>? images;
   final List<Category>? categories;
-  final List<SubCategory>? sub_categories;
-  final List<MenuItem>? menu_items;
+  final List<SubCategory>? subCategories;
+  final List<MenuItem>? menuItems;
 
   FoodTruck({
     required this.id,
@@ -31,7 +31,6 @@ class FoodTruck {
     required this.description,
     required this.type,
     this.rating,
-
     required this.phone,
     this.website,
     this.workingHours,
@@ -39,8 +38,8 @@ class FoodTruck {
     required this.longitude,
     this.images,
     this.categories,
-    this.sub_categories,
-    this.menu_items,
+    this.subCategories,
+    this.menuItems,
   });
   bool get isOpen {
     if (workingHours == null || workingHours!.isEmpty) return false;
@@ -84,11 +83,11 @@ class FoodTruck {
       images: json['images'] != null ? (json['images'] as List).map((i) => FoodTruckImage.fromJson(i)).toList() : null,
       categories:
           json['categories'] != null ? (json['categories'] as List).map((i) => Category.fromJson(i)).toList() : null,
-      sub_categories:
+      subCategories:
           json['sub_categories'] != null
               ? (json['sub_categories'] as List).map((i) => SubCategory.fromJson(i)).toList()
               : null,
-      menu_items:
+      menuItems:
           json['menu_items'] != null ? (json['menu_items'] as List).map((i) => MenuItem.fromJson(i)).toList() : null,
     );
   }
@@ -106,8 +105,8 @@ class FoodTruck {
       'working_hours': workingHours?.map((i) => i.toJson()).toList(),
       'images': images?.map((i) => i.toJson()).toList(),
       'categories': categories?.map((i) => i.id).toList(),
-      'sub_categories': sub_categories?.map((i) => i.id).toList(),
-      'menu_items': menu_items?.map((i) => i.toJson()).toList(),
+      'sub_categories': subCategories?.map((i) => i.id).toList(),
+      'menu_items': menuItems?.map((i) => i.toJson()).toList(),
     };
   }
 }

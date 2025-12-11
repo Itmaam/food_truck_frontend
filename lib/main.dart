@@ -14,7 +14,6 @@ import 'package:food_truck_finder_user_app/language_provider.dart';
 import 'package:food_truck_finder_user_app/router/custom_back_button_dispatcher.dart';
 import 'package:food_truck_finder_user_app/router/router.dart';
 import 'package:food_truck_finder_user_app/ui_helpers/theme/theme.dart';
-import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -99,7 +98,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     return MultiProvider(
-      providers: <SingleChildWidget>[
+      providers: [
         ChangeNotifierProvider<ThemeManager>(create: (_) => ThemeManager.instance),
         ChangeNotifierProvider<LanguageProvider>.value(value: _languageProvider),
       ],
@@ -110,13 +109,10 @@ class _MyAppState extends State<MyApp> {
             textDirection: isRTL ? TextDirection.rtl : TextDirection.ltr,
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,
-
-              //routerConfig: router,
               routeInformationProvider: router.routeInformationProvider,
               routeInformationParser: router.routeInformationParser,
               routerDelegate: router.routerDelegate,
               backButtonDispatcher: CustomBackButtonDispatcher(router),
-
               locale: languageProvider.locale,
               supportedLocales: LanguageProvider.supportedLocales,
               localizationsDelegates: const [

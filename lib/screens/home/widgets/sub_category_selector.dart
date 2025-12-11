@@ -21,7 +21,10 @@ class SubCategorySelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return allSubCategories.isEmpty
         ? Center(
-          child: Padding(padding: EdgeInsets.only(top: AppSpacing.large), child: CircularProgressIndicator.adaptive()),
+          child: Padding(
+            padding: EdgeInsets.only(top: AppSpacing.large),
+            child: CircularProgressIndicator.adaptive(),
+          ),
         )
         : SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -32,13 +35,23 @@ class SubCategorySelector extends StatelessWidget {
             choiceItems: C2Choice.listFrom<int, SubCategory>(
               source: allSubCategories,
               value: (i, v) => v.id, // IDs must be unique
-              label: (i, v) => Provider.of<LanguageProvider>(context).locale.languageCode == 'ar' ? v.arLang : v.name,
+              label:
+                  (i, v) =>
+                      Provider.of<LanguageProvider>(
+                                context,
+                              ).locale.languageCode ==
+                              'ar'
+                          ? v.arLang
+                          : v.name,
             ),
             choiceCheckmark: true,
             choiceStyle: C2ChipStyle(
               backgroundColor: Colors.white,
               backgroundOpacity: 0.8,
-              foregroundStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+              foregroundStyle: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
           ),
         );

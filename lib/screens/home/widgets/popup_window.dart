@@ -15,7 +15,10 @@ class PopupWindow extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            decoration: BoxDecoration(color: context.theme.cardColor, borderRadius: BorderRadius.circular(4)),
+            decoration: BoxDecoration(
+              color: context.theme.cardColor,
+              borderRadius: BorderRadius.circular(4),
+            ),
             width: double.infinity,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +38,8 @@ class PopupWindow extends StatelessWidget {
                               value:
                                   loadingProgress.expectedTotalBytes != null
                                       ? loadingProgress.cumulativeBytesLoaded /
-                                          (loadingProgress.expectedTotalBytes ?? 1)
+                                          (loadingProgress.expectedTotalBytes ??
+                                              1)
                                       : null,
                             ),
                           );
@@ -44,7 +48,12 @@ class PopupWindow extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.088,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
-                          return Center(child: Icon(Icons.restaurant_menu, color: Colors.white));
+                          return Center(
+                            child: Icon(
+                              Icons.restaurant_menu,
+                              color: Colors.white,
+                            ),
+                          );
                         },
                       ),
                     ),
@@ -74,9 +83,13 @@ class PopupWindow extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.33,
                       child: Text(
-                        foodTruck.isOpen ? S.of(context).openNow : S.of(context).closedNow,
+                        foodTruck.isOpen
+                            ? S.of(context).openNow
+                            : S.of(context).closedNow,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        style: Theme.of(
+                          context,
+                        ).textTheme.labelMedium!.copyWith(
                           color: foodTruck.isOpen ? Colors.green : Colors.red,
                           fontWeight: FontWeight.bold,
                         ),
@@ -93,7 +106,10 @@ class PopupWindow extends StatelessWidget {
                       children: [
                         Icon(Icons.star, size: 15, color: Colors.amber),
                         SizedBox(width: 8.0),
-                        Text(foodTruck.rating!.toStringAsFixed(1), style: Theme.of(context).textTheme.labelMedium),
+                        Text(
+                          foodTruck.rating!.toStringAsFixed(1),
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
                       ],
                     ),
                   ),
@@ -105,8 +121,13 @@ class PopupWindow extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFF8984A),
                         foregroundColor: Colors.white,
-                        minimumSize: Size(MediaQuery.of(context).size.width * 0.05, 22),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                        minimumSize: Size(
+                          MediaQuery.of(context).size.width * 0.05,
+                          22,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
+                        ),
                       ),
                       onPressed: () {},
                       child: Text(S.of(context).viewDetails),
@@ -119,7 +140,11 @@ class PopupWindow extends StatelessWidget {
         ),
         Triangle.isosceles(
           edge: Edge.BOTTOM,
-          child: Container(color: context.theme.cardColor, width: 20.0, height: 10.0),
+          child: Container(
+            color: context.theme.cardColor,
+            width: 20.0,
+            height: 10.0,
+          ),
         ),
       ],
     );

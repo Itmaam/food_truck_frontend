@@ -6,7 +6,12 @@ class WorkingHours {
   TimeOfDay? closingTime;
   bool isClosed;
 
-  WorkingHours({required this.day, this.openingTime, this.closingTime, this.isClosed = false});
+  WorkingHours({
+    required this.day,
+    this.openingTime,
+    this.closingTime,
+    this.isClosed = false,
+  });
 
   Map<String, dynamic> toJson() {
     return {

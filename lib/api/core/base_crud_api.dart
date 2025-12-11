@@ -37,7 +37,9 @@ abstract class BaseCRUDApi<T> {
         ...(filter ?? {}).map((key, value) => MapEntry('filter.$key', value)),
       },
     );
-    return (response as List).map((json) => fromJson(json as Map<String, dynamic>)).toList();
+    return (response as List)
+        .map((json) => fromJson(json as Map<String, dynamic>))
+        .toList();
   }
 
   Future<void> delete(int id) async {

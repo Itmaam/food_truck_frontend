@@ -26,16 +26,56 @@ class ThemeLight extends ApplicationTheme {
     const MaterialColor disabledColor = Colors.grey;
 
     // Text Styles
-    const TextStyle bodyLargeStyle = TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal);
-    const TextStyle bodyMediumStyle = TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal);
-    const TextStyle titleLargeStyle = TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold);
-    const TextStyle labelLargeStyle = TextStyle(color: fabColor, fontSize: 16, fontWeight: FontWeight.bold);
-    const TextStyle bodySmallStyle = TextStyle(color: Colors.black, fontSize: 12, fontWeight: FontWeight.normal);
-    const TextStyle appBarTitleStyle = TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold);
-    const TextStyle inputLabelStyle = TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal);
-    const TextStyle snackBarContentStyle = TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.normal);
-    const TextStyle tooltipTextStyle = TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal);
-    const TextStyle tabLabelStyle = TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold);
+    const TextStyle bodyLargeStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+    );
+    const TextStyle bodyMediumStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+    );
+    const TextStyle titleLargeStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    );
+    const TextStyle labelLargeStyle = TextStyle(
+      color: fabColor,
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+    );
+    const TextStyle bodySmallStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 12,
+      fontWeight: FontWeight.normal,
+    );
+    const TextStyle appBarTitleStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    );
+    const TextStyle inputLabelStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+    );
+    const TextStyle snackBarContentStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+    );
+    const TextStyle tooltipTextStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+    );
+    const TextStyle tabLabelStyle = TextStyle(
+      color: Colors.black,
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+    );
     const TextStyle tabUnselectedLabelStyle = TextStyle(
       color: Colors.grey,
       fontSize: 16,
@@ -81,7 +121,10 @@ class ThemeLight extends ApplicationTheme {
       ),
 
       // Bottom App Bar
-      bottomAppBarTheme: const BottomAppBarTheme(color: bottomAppBarColor, elevation: 4.0),
+      bottomAppBarTheme: const BottomAppBarTheme(
+        color: bottomAppBarColor,
+        elevation: 4.0,
+      ),
 
       // Buttons
       buttonTheme: ButtonThemeData(
@@ -92,18 +135,30 @@ class ThemeLight extends ApplicationTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           foregroundColor: WidgetStateProperty.resolveWith<Color?>(
-            (Set<WidgetState> states) => states.contains(WidgetState.disabled) ? disabledColor : Colors.white,
+            (Set<WidgetState> states) =>
+                states.contains(WidgetState.disabled)
+                    ? disabledColor
+                    : Colors.white,
           ),
           textStyle: WidgetStateProperty.resolveWith<TextStyle>(
-            (Set<WidgetState> states) =>
-                TextStyle(color: states.contains(WidgetState.disabled) ? disabledColor : Colors.white),
+            (Set<WidgetState> states) => TextStyle(
+              color:
+                  states.contains(WidgetState.disabled)
+                      ? disabledColor
+                      : Colors.white,
+            ),
           ),
           backgroundColor: WidgetStateProperty.resolveWith<Color?>(
-            (Set<WidgetState> states) => states.contains(WidgetState.disabled) ? disabledColor : primaryColor,
+            (Set<WidgetState> states) =>
+                states.contains(WidgetState.disabled)
+                    ? disabledColor
+                    : primaryColor,
           ),
           overlayColor: WidgetStateProperty.resolveWith<Color?>(
             (Set<WidgetState> states) =>
-                states.contains(WidgetState.pressed) ? const Color(0xFF00E5DB).withValues(alpha: 0.2) : null,
+                states.contains(WidgetState.pressed)
+                    ? const Color(0xFF00E5DB).withValues(alpha: 0.2)
+                    : null,
           ),
         ),
       ),
@@ -118,7 +173,11 @@ class ThemeLight extends ApplicationTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: primaryColor,
-          textStyle: const TextStyle(color: primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+          textStyle: const TextStyle(
+            color: primaryColor,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
 
@@ -157,17 +216,25 @@ class ThemeLight extends ApplicationTheme {
 
       // Checkbox, Radio, Switch
       checkboxTheme: CheckboxThemeData(
-        side: const BorderSide(color: secondaryColor, width: 2, strokeAlign: 20),
+        side: const BorderSide(
+          color: secondaryColor,
+          width: 2,
+          strokeAlign: 20,
+        ),
         shape: RoundedRectangleBorder(
           side: BorderSide(color: secondaryColor.withAlpha(55), width: 2),
           borderRadius: BorderRadius.circular(4.0),
         ),
-        checkColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        checkColor: WidgetStateProperty.resolveWith<Color?>((
+          Set<WidgetState> states,
+        ) {
           if (states.contains(WidgetState.disabled)) return disabledColor;
           if (states.contains(WidgetState.selected)) return primaryColor;
           return null;
         }),
-        fillColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        fillColor: WidgetStateProperty.resolveWith<Color?>((
+          Set<WidgetState> states,
+        ) {
           if (states.contains(WidgetState.disabled)) return disabledColor;
           if (states.contains(WidgetState.selected)) return secondaryColor;
           return backgroundColor;
@@ -175,7 +242,9 @@ class ThemeLight extends ApplicationTheme {
       ),
 
       radioTheme: RadioThemeData(
-        fillColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        fillColor: WidgetStateProperty.resolveWith<Color?>((
+          Set<WidgetState> states,
+        ) {
           if (states.contains(WidgetState.disabled)) return disabledColor;
           if (states.contains(WidgetState.selected)) return primaryColor;
           return null;
@@ -183,14 +252,20 @@ class ThemeLight extends ApplicationTheme {
       ),
 
       switchTheme: SwitchThemeData(
-        thumbColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        thumbColor: WidgetStateProperty.resolveWith<Color?>((
+          Set<WidgetState> states,
+        ) {
           if (states.contains(WidgetState.disabled)) return disabledColor;
           if (states.contains(WidgetState.selected)) return primaryColor;
           return null;
         }),
-        trackColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
-          if (states.contains(WidgetState.disabled)) return disabledColor.withValues(alpha: 0.5);
-          if (states.contains(WidgetState.selected)) return primaryColor.withValues(alpha: 0.5);
+        trackColor: WidgetStateProperty.resolveWith<Color?>((
+          Set<WidgetState> states,
+        ) {
+          if (states.contains(WidgetState.disabled))
+            return disabledColor.withValues(alpha: 0.5);
+          if (states.contains(WidgetState.selected))
+            return primaryColor.withValues(alpha: 0.5);
           return null;
         }),
       ),
@@ -213,12 +288,17 @@ class ThemeLight extends ApplicationTheme {
 
       // Tooltip
       tooltipTheme: TooltipThemeData(
-        decoration: BoxDecoration(color: fabColor, borderRadius: BorderRadius.circular(8.0)),
+        decoration: BoxDecoration(
+          color: fabColor,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
         textStyle: tooltipTextStyle,
       ),
 
       // Bottom Sheet
-      bottomSheetTheme: const BottomSheetThemeData(backgroundColor: backgroundColor),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: backgroundColor,
+      ),
 
       // Dialog
       dialogTheme: const DialogThemeData(backgroundColor: surfaceColor),

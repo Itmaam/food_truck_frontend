@@ -27,26 +27,19 @@ class FoodMenuTabView extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.3,
             child: ListView.builder(
-              itemCount: foodTruck.menu_items!.length,
+              itemCount: foodTruck.menuItems!.length,
               itemBuilder:
                   (context, index) => Card(
                     child: Padding(
                       padding: AppSpacing.allMedium,
                       child: ListTile(
                         leading:
-                            foodTruck.menu_items![index].imageUrl != null
-                                ? Image.network(foodTruck.menu_items![index].imageUrl ?? '')
+                            foodTruck.menuItems![index].imageUrl != null
+                                ? Image.network(foodTruck.menuItems![index].imageUrl ?? '')
                                 : SvgPicture.asset('assets/svgs/cutlery-fork.svg', height: 20),
-                        title: Text(foodTruck.menu_items![index].name),
-                        subtitle: Text(foodTruck.menu_items![index].description ?? ''),
+                        title: Text(foodTruck.menuItems![index].name),
+                        subtitle: Text(foodTruck.menuItems![index].description ?? ''),
                       ),
-                      // child: Row(
-                      //   children: [
-                      //     ,
-                      //     SizedBox(width: AppSpacing.small),
-                      //     Text(foodTruck.menu_items![index].name),
-                      //   ],
-                      // ),
                     ),
                   ),
             ),

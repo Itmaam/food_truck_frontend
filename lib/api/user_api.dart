@@ -24,7 +24,8 @@ class UserApi extends BaseCRUDApi<User> {
         return false;
       }
 
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
       if (googleAuth.idToken == null) {
         log('Google Sign-In: Failed to get ID token');
@@ -71,7 +72,10 @@ class UserApi extends BaseCRUDApi<User> {
   Future<bool> signInWithApple() async {
     try {
       final credential = await SignInWithApple.getAppleIDCredential(
-        scopes: [AppleIDAuthorizationScopes.email, AppleIDAuthorizationScopes.fullName],
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
       );
       if (credential.identityToken == null) {
         log('Apple Sign-In: Failed to get ID token');
@@ -83,7 +87,9 @@ class UserApi extends BaseCRUDApi<User> {
       try {
         // Get the name
         final fullName =
-            credential.givenName != null ? '${credential.givenName} ${credential.familyName}' : 'apple user';
+            credential.givenName != null
+                ? '${credential.givenName} ${credential.familyName}'
+                : 'apple user';
         final response = await httpClient.post(
           '/auth/apple/auth',
           body: {
@@ -132,14 +138,20 @@ class UserApi extends BaseCRUDApi<User> {
   }
 
   Future<(String, String)> login(String email, String password) async {
-    final response = await httpClient.post('/auth/login', body: {'email': email, 'password': password});
+    final response = await httpClient.post(
+      '/auth/login',
+      body: {'email': email, 'password': password},
+    );
     final bearerToken = response['bearerToken'] as String;
     final refreshToken = response['refreshToken'] as String;
 
     return (bearerToken, refreshToken);
   }
 
-  Future<(String, String, String)> refreshToken(String email, String refreshToken) async {
+  Future<(String, String, String)> refreshToken(
+    String email,
+    String refreshToken,
+  ) async {
     final response = await httpClient.post(
       '/refresh-token',
       body: {'email': email, 'refreshTokenString': refreshToken},
@@ -166,7 +178,12 @@ class UserApi extends BaseCRUDApi<User> {
   Future<void> resetPassword(int userId, String code, String password) async {
     await httpClient.post(
       '/reset-password',
-      body: {'userId': userId, 'code': code, 'password': password, 'confirmPassword': password},
+      body: {
+        'userId': userId,
+        'code': code,
+        'password': password,
+        'confirmPassword': password,
+      },
     );
   }
 

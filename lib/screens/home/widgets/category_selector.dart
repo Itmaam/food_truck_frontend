@@ -11,13 +11,21 @@ class CategorySelector extends StatelessWidget {
   final List<Category> allCategories;
   final Function(List<int>) onChanged;
 
-  const CategorySelector({super.key, required this.onChanged, required this.selected, required this.allCategories});
+  const CategorySelector({
+    super.key,
+    required this.onChanged,
+    required this.selected,
+    required this.allCategories,
+  });
 
   @override
   Widget build(BuildContext context) {
     return allCategories.isEmpty
         ? Center(
-          child: Padding(padding: EdgeInsets.only(top: AppSpacing.large), child: CircularProgressIndicator.adaptive()),
+          child: Padding(
+            padding: EdgeInsets.only(top: AppSpacing.large),
+            child: CircularProgressIndicator.adaptive(),
+          ),
         )
         : SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -28,14 +36,24 @@ class CategorySelector extends StatelessWidget {
             choiceItems: C2Choice.listFrom<int, Category>(
               source: allCategories,
               value: (i, v) => v.id, // IDs must be unique
-              label: (i, v) => Provider.of<LanguageProvider>(context).locale.languageCode == 'ar' ? v.arLang : v.name,
+              label:
+                  (i, v) =>
+                      Provider.of<LanguageProvider>(
+                                context,
+                              ).locale.languageCode ==
+                              'ar'
+                          ? v.arLang
+                          : v.name,
             ),
             choiceCheckmark: true,
 
             choiceStyle: C2ChipStyle(
               backgroundColor: context.theme.primaryColor,
               backgroundOpacity: 0.9,
-              foregroundStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              foregroundStyle: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         );

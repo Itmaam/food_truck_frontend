@@ -38,7 +38,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       appBar: AppBar(
         foregroundColor: Colors.white,
         title: Text(S.of(context).profile),
-        leading: IconButton(onPressed: () => context.push('/home'), icon: Icon(Icons.arrow_back)),
+        leading: IconButton(
+          onPressed: () => context.push('/home'),
+          icon: Icon(Icons.arrow_back),
+        ),
 
         automaticallyImplyLeading: true,
         backgroundColor: Theme.of(context).primaryColor,
@@ -56,7 +59,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           padding: EdgeInsets.all(AppSpacing.large),
                           child: CircleAvatar(
                             radius: 50,
-                            backgroundImage: NetworkImage(UserAuthManager.currentUser!.image),
+                            backgroundImage: NetworkImage(
+                              UserAuthManager.currentUser!.image,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -91,7 +96,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             children: [
                               Text(
                                 S.of(context).yourFoodTruck,
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               ElevatedButton(
                                 onPressed: () => context.push('/add_activity'),
@@ -109,11 +117,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           child: FutureBuilder<List<FoodTruck>>(
                             future: AppApi.foodTruckApi.myTrucks(),
                             builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return Center(child: CircularProgressIndicator());
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
                               }
                               if (snapshot.hasError) {
-                                return Center(child: Text('Error: ${snapshot.error}'));
+                                return Center(
+                                  child: Text('Error: ${snapshot.error}'),
+                                );
                               }
                               if (!snapshot.hasData || snapshot.data!.isEmpty) {
                                 return Center(child: Text(''));
@@ -133,8 +146,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             (item) => FoodTruckListItem(
                                               foodTruck: item,
                                               onDelete: () async {
-                                                await AppApi.foodTruckApi.delete(item.id);
-                                                setState(() {}); // Trigger rebuild
+                                                await AppApi.foodTruckApi
+                                                    .delete(item.id);
+                                                setState(
+                                                  () {},
+                                                ); // Trigger rebuild
                                               },
                                             ),
                                           )

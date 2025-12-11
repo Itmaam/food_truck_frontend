@@ -36,7 +36,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               children: <Widget>[
                 Text(
                   lang.verifyOtpTitle,
-                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontWeight: FontWeight.w800),
+                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ],
             ),
@@ -49,7 +51,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             const SizedBox(height: AppSpacing.large),
             FormBuilderTextField(
               name: 'otp',
-              decoration: InputDecoration(prefixIcon: const Icon(Icons.lock_outline), hintText: lang.otpCodeHint),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.lock_outline),
+                hintText: lang.otpCodeHint,
+              ),
               keyboardType: TextInputType.number,
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(),
@@ -61,26 +66,38 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
             if (_errorMessage != null)
               Padding(
                 padding: const EdgeInsets.only(bottom: AppSpacing.medium),
-                child: Text(_errorMessage!, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.red)),
+                child: Text(
+                  _errorMessage!,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: Colors.red),
+                ),
               ),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: _isLoading ? null : _verifyOtp,
-                style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(50)),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                ),
                 child:
                     _isLoading
                         ? const CircularProgressIndicator(color: Colors.white)
                         : Text(
                           lang.verifyOtpButton,
-                          style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Colors.white),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.labelLarge!.copyWith(color: Colors.white),
                         ),
               ),
             ),
             const SizedBox(height: AppSpacing.medium),
             TextButton(
               onPressed: _isLoading ? null : () => context.push('/auth/login'),
-              child: Text(lang.cancelButton, style: Theme.of(context).textTheme.labelLarge),
+              child: Text(
+                lang.cancelButton,
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
             ),
           ],
         ),
@@ -97,7 +114,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
       try {
         final otp = _formKey.currentState!.fields['otp']!.value as String;
-        final response = await AppApi.passwordResetApi.verifyOtp(widget.email, otp);
+        final response = await AppApi.passwordResetApi.verifyOtp(
+          widget.email,
+          otp,
+        );
 
         debugPrint('OTP Verification Response: $response');
 
@@ -106,12 +126,17 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         }
 
         if (mounted) {
-          context.push('/auth/reset-password?email=${widget.email}&&token=${response['reset_token']}');
+          context.push(
+            '/auth/reset-password?email=${widget.email}&&token=${response['reset_token']}',
+          );
         }
       } catch (e) {
         setState(() {
           final lang = S.of(context);
-          _errorMessage = e.toString().contains('No token') ? lang.invalidOtpResponse : lang.genericError;
+          _errorMessage =
+              e.toString().contains('No token')
+                  ? lang.invalidOtpResponse
+                  : lang.genericError;
         });
       } finally {
         if (mounted) {

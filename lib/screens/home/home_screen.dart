@@ -25,6 +25,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:food_truck_finder_user_app/ui_helpers/constants/app_spacing.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -365,6 +367,40 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
     await _fetchNearbyFoodTrucks();
   }
 
+  Future<void> _openWhatsAppSupport() async {
+    try {
+      // Fetch contact details from API (same as contact_us_screen)
+      HttpClient httpClient = HttpClient();
+      final response = await httpClient.get('${AppUrl.apiUrl}/contact-us');
+
+      String phoneNumber = response['phone'] ?? '966500000000';
+
+      // Remove any non-numeric characters
+      phoneNumber = phoneNumber.replaceAll(RegExp(r'\D'), '');
+
+      // Ensure country code for Saudi Arabia
+      if (!phoneNumber.startsWith('966')) {
+        phoneNumber = '966$phoneNumber';
+      }
+
+      // Open WhatsApp with phone number
+      final whatsappUrl = Uri.parse('https://wa.me/$phoneNumber');
+
+      if (await canLaunchUrl(whatsappUrl)) {
+        await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication);
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Cannot open WhatsApp')));
+        }
+      }
+    } catch (e) {
+      debugPrint('Error opening WhatsApp: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error opening WhatsApp')));
+      }
+    }
+  }
+
   @override
   void dispose() {
     _debounceTimer?.cancel();
@@ -579,130 +615,16 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                   mini: true,
                   child: Icon(_currentMapType == MapType.normal ? Icons.satellite : Icons.map),
                 ),
-                //filter by food truck type
+                const SizedBox(height: 8),
+                // WhatsApp Support Button
                 FloatingActionButton(
-                  heroTag: 'filter_button', // Provide unique heroTag
-                  backgroundColor: context.theme.primaryColor,
-                  onPressed: () {
-                    // Show filter options
-                    _selectedTypes = [];
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.5,
-                          child: Padding(
-                            padding: const EdgeInsets.all(AppSpacing.medium),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(S.of(context).filterByType, style: context.theme.textTheme.titleLarge),
-                                const SizedBox(height: AppSpacing.small),
-                                //filter by Type chips like selectors
-                                Expanded(
-                                  child: Wrap(
-                                    spacing: AppSpacing.small,
-                                    runSpacing: AppSpacing.small,
-                                    children:
-                                        _allTypes.map((type) {
-                                          return FilterChip(
-                                            avatar:
-                                                type['image'] != null
-                                                    ? ClipOval(
-                                                      child: Image.network(
-                                                        type['image'],
-                                                        width: 32,
-                                                        height: 32,
-                                                        fit: BoxFit.cover,
-                                                        errorBuilder: (context, error, stackTrace) {
-                                                          return Container(
-                                                            width: 32,
-                                                            height: 32,
-                                                            decoration: BoxDecoration(
-                                                              color: Colors.grey.shade300,
-                                                              shape: BoxShape.circle,
-                                                            ),
-                                                            child: Icon(
-                                                              Icons.fastfood,
-                                                              size: 16,
-                                                              color: Colors.grey.shade600,
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    )
-                                                    : Container(
-                                                      width: 32,
-                                                      height: 32,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.grey.shade300,
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: Icon(
-                                                        Icons.fastfood,
-                                                        size: 16,
-                                                        color: Colors.grey.shade600,
-                                                      ),
-                                                    ),
-                                            label: Text(type['name']),
-                                            selected: _selectedTypes.contains(type['id'] as int),
-                                            onSelected: (isSelected) async {
-                                              setState(() {
-                                                if (isSelected) {
-                                                  _selectedTypes.add(type['id'] as int);
-                                                } else {
-                                                  _selectedTypes.remove(type['id'] as int);
-                                                }
-                                              });
-                                              // Fetch nearby food trucks with the updated filters
-                                              await _fetchNearbyFoodTrucks();
-                                              // ignore: use_build_context_synchronously
-                                              Navigator.pop(context);
-                                            },
-                                          );
-                                        }).toList(),
-                                  ),
-                                ),
-                                const SizedBox(height: AppSpacing.medium),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    setState(() {
-                                      _selectedTypes = [];
-                                    });
-                                    _fetchNearbyFoodTrucks();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: context.theme.colorScheme.error,
-                                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.medium, vertical: 12),
-                                  ),
-
-                                  child: Text(S.of(context).clearFilters),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  tooltip: S.of(context).filter,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Badge.count(
-                        isLabelVisible: _selectedTypes.isNotEmpty,
-                        alignment: Alignment.topRight,
-                        count: _selectedTypes.length,
-                        textStyle: context.theme.textTheme.labelSmall!.copyWith(color: Colors.white),
-                        child: Icon(Icons.filter_list_alt, color: Colors.white),
-                      ),
-                      Text(
-                        S.of(context).filter,
-                        style: context.theme.textTheme.bodySmall!.copyWith(color: Colors.white),
-                      ),
-                    ],
+                  heroTag: 'whatsapp_button',
+                  backgroundColor: const Color(0xFF25D366), // WhatsApp green color
+                  onPressed: _openWhatsAppSupport,
+                  mini: true,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SvgPicture.asset('assets/svgs/whatsapp-svgrepo-com.svg', color: Colors.white),
                   ),
                 ),
               ],

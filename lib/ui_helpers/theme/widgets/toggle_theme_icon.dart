@@ -25,9 +25,14 @@ class _ToggleThemeIconState extends State<ToggleThemeIcon> {
         showDuration: const Duration(milliseconds: 500),
         child: IconButton(
           key: ValueKey<bool>(isDark),
-          icon: Icon(isDark ? Icons.dark_mode : Icons.light_mode, color: isDark ? Colors.white : Colors.black),
+          icon: Icon(
+            isDark ? Icons.dark_mode : Icons.light_mode,
+            color: isDark ? Colors.white : Colors.black,
+          ),
           onPressed: () {
-            ThemeManager.instance.changeTheme(isDark ? ThemeEnum.light : ThemeEnum.dark);
+            ThemeManager.instance.changeTheme(
+              isDark ? ThemeEnum.light : ThemeEnum.dark,
+            );
             setState(() {
               isDark = !isDark;
             });

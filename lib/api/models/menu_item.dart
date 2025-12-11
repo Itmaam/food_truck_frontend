@@ -28,6 +28,11 @@ class MenuItem {
   }
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'food_truck_id': foodTruckId, 'name': name, 'description': description};
+    return {
+      'id': id,
+      'food_truck_id': foodTruckId,
+      'name': name,
+      'description': description,
+    };
   }
 }

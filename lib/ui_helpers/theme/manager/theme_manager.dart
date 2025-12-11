@@ -34,7 +34,8 @@ class ThemeManager extends ChangeNotifier implements IThemeManager {
       );
       changeTheme(savedTheme);
     } else {
-      final Brightness brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+      final Brightness brightness =
+          WidgetsBinding.instance.platformDispatcher.platformBrightness;
       if (brightness == Brightness.dark) {
         changeTheme(ThemeEnum.dark);
       } else {

@@ -20,8 +20,14 @@ class CustomBackButtonDispatcher extends RootBackButtonDispatcher {
           (context) => AlertDialog(
             title: Text(S.of(context).areYouSureToExit),
             actions: [
-              TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(S.of(context).yes)),
-              TextButton(onPressed: () => Navigator.of(context).pop(true), child: Text(S.of(context).no)),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text(S.of(context).yes),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: Text(S.of(context).no),
+              ),
             ],
           ),
     );

@@ -13,7 +13,12 @@ class ReviewApi extends BaseCRUDApi<Review> {
     }
   }
 
-  Future<Review> createReview(int foodTruckId, int rating, String comment, int? reviewId) async {
+  Future<Review> createReview(
+    int foodTruckId,
+    int rating,
+    String comment,
+    int? reviewId,
+  ) async {
     try {
       final response = await httpClient.post(
         '/$foodTruckId/reviews',

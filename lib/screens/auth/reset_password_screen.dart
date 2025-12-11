@@ -11,7 +11,11 @@ class ResetPasswordScreen extends StatefulWidget {
   final String email;
   final String token;
 
-  const ResetPasswordScreen({super.key, required this.email, required this.token});
+  const ResetPasswordScreen({
+    super.key,
+    required this.email,
+    required this.token,
+  });
 
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
@@ -37,7 +41,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               children: <Widget>[
                 Text(
                   lang.setNewPasswordTitle,
-                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontWeight: FontWeight.w800),
+                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ],
             ),
@@ -45,7 +51,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             FormBuilderTextField(
               name: 'password',
               obscureText: true,
-              decoration: InputDecoration(prefixIcon: const Icon(Icons.password), hintText: lang.newPasswordHint),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.password),
+                hintText: lang.newPasswordHint,
+              ),
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(),
                 FormBuilderValidators.minLength(8),
@@ -55,7 +64,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             FormBuilderTextField(
               name: 'confirm_password',
               obscureText: true,
-              decoration: InputDecoration(prefixIcon: const Icon(Icons.password), hintText: lang.confirmPasswordHint),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.password),
+                hintText: lang.confirmPasswordHint,
+              ),
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(),
                 (val) {
@@ -70,26 +82,38 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             if (_errorMessage != null)
               Padding(
                 padding: const EdgeInsets.only(bottom: AppSpacing.medium),
-                child: Text(_errorMessage!, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.red)),
+                child: Text(
+                  _errorMessage!,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: Colors.red),
+                ),
               ),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: _isLoading ? null : _resetPassword,
-                style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(50)),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                ),
                 child:
                     _isLoading
                         ? const CircularProgressIndicator(color: Colors.white)
                         : Text(
                           lang.resetPasswordButton,
-                          style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Colors.white),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.labelLarge!.copyWith(color: Colors.white),
                         ),
               ),
             ),
             const SizedBox(height: AppSpacing.medium),
             TextButton(
               onPressed: _isLoading ? null : () => context.push('/auth/login'),
-              child: Text(lang.cancelButton, style: Theme.of(context).textTheme.labelLarge),
+              child: Text(
+                lang.cancelButton,
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
             ),
           ],
         ),
@@ -105,9 +129,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       });
 
       try {
-        final password = _formKey.currentState!.fields['password']!.value as String;
-        final passwordConfirm = _formKey.currentState!.fields['confirm_password']!.value as String;
-        await AppApi.passwordResetApi.resetPassword(widget.token, password, passwordConfirm);
+        final password =
+            _formKey.currentState!.fields['password']!.value as String;
+        final passwordConfirm =
+            _formKey.currentState!.fields['confirm_password']!.value as String;
+        await AppApi.passwordResetApi.resetPassword(
+          widget.token,
+          password,
+          passwordConfirm,
+        );
 
         if (mounted) {
           context.push('/auth/login');

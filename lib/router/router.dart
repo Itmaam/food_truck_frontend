@@ -55,14 +55,6 @@ final GoRouter router = GoRouter(
           builder: (BuildContext context, GoRouterState state) {
             final email = state.uri.queryParameters['email'] ?? '';
             final token = state.uri.queryParameters['token'] ?? '';
-            if (token.isEmpty) {
-              // Handle missing token - redirect back or show error
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                context.push('/auth/forget-password');
-              });
-              return const SizedBox(); // Temporary placeholder
-            }
-
             return ResetPasswordScreen(email: email, token: token);
           },
         ),
@@ -118,38 +110,29 @@ final GoRouter router = GoRouter(
     ),
   ],
   redirect: (BuildContext context, GoRouterState state) async {
-    final bool inAuthGroup = state.matchedLocation.startsWith('/auth');
-    final bool inSplash = state.fullPath == '/';
+    final String path = state.matchedLocation;
+    final bool inAuthGroup = path.startsWith('/auth');
+    final bool isSplash = path == '/';
 
-    final publicRoutes = [
-      '/',
-      '/home',
-      '/privacy_policy',
-      '/tos',
-      '/contact_us',
-      '/view_activity', // Allow viewing activities without login
-    ];
+    // Public routes that don't require authentication
+    final publicRoutes = ['/', '/home', '/privacy_policy', '/tos', '/contact_us'];
 
-    // Check if current route is public
-    final isPublic = publicRoutes.any((route) => state.matchedLocation.startsWith(route));
+    // Activity details can be viewed without login
+    final isViewActivity = path.startsWith('/view_activity');
+    final isPublicRoute = publicRoutes.contains(path) || isViewActivity;
 
-    if (isPublic) {
-      return null; // Allow access
-    }
-
-    if (inSplash) {
+    // Allow access to public routes and auth pages
+    if (isPublicRoute || inAuthGroup || isSplash) {
       return null;
     }
 
-    String? token = await AuthHelper.getBearerToken();
-    if (!inAuthGroup && token == null) {
-      // Store the intended destination to redirect after login
-      final intendedRoute = state.matchedLocation;
-      if (intendedRoute != '/auth/login') {
-        return '/auth/login?redirect=${Uri.encodeComponent(intendedRoute)}';
-      }
-      return '/auth/login';
+    // Check authentication for protected routes
+    final String? token = await AuthHelper.getBearerToken();
+    if (token == null) {
+      // Store intended destination for redirect after login
+      return '/auth/login?redirect=${Uri.encodeComponent(path)}';
     }
+
     return null;
   },
 );

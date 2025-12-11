@@ -31,7 +31,10 @@ class Review {
       comment: json['comment'],
       user: json['user'] != null ? User.fromJson(json['user']) : null,
       createdAt: DateTime.parse(json['created_at']),
-      updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null,
+      updatedAt:
+          json['updated_at'] != null
+              ? DateTime.parse(json['updated_at'])
+              : null,
     );
   }
 

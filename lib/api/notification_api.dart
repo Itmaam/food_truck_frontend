@@ -12,7 +12,9 @@ class NotificationApi extends BaseCRUDApi {
 
       return {
         'notifications':
-            (data['notifications']['data'] as List).map((json) => NotificationModel.fromJson(json)).toList(),
+            (data['notifications']['data'] as List)
+                .map((json) => NotificationModel.fromJson(json))
+                .toList(),
         'unread_count': data['unread_count'],
       };
     } else {

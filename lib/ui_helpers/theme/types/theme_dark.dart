@@ -26,24 +26,56 @@ class ThemeDark extends ApplicationTheme {
     const MaterialColor disabledColor = Colors.grey;
 
     // Text Styles
-    const TextStyle bodyLargeStyle = TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.normal);
-    const TextStyle bodyMediumStyle = TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal);
-    const TextStyle titleLargeStyle = TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold);
-    const TextStyle labelLargeStyle = TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold);
+    const TextStyle bodyLargeStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+    );
+    const TextStyle bodyMediumStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+    );
+    const TextStyle titleLargeStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    );
+    const TextStyle labelLargeStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+    );
     final TextStyle bodySmallStyle = TextStyle(
       color: Colors.white.withValues(alpha: 0.5),
       fontSize: 12,
       fontWeight: FontWeight.normal,
     );
-    const TextStyle appBarTitleStyle = TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold);
+    const TextStyle appBarTitleStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    );
     final TextStyle inputLabelStyle = TextStyle(
       color: Colors.white.withValues(alpha: 0.5),
       fontSize: 16,
       fontWeight: FontWeight.normal,
     );
-    const TextStyle snackBarContentStyle = TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.normal);
-    const TextStyle tooltipTextStyle = TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal);
-    const TextStyle tabLabelStyle = TextStyle(color: secondaryColor, fontSize: 16, fontWeight: FontWeight.bold);
+    const TextStyle snackBarContentStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+    );
+    const TextStyle tooltipTextStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+    );
+    const TextStyle tabLabelStyle = TextStyle(
+      color: secondaryColor,
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+    );
     final TextStyle tabUnselectedLabelStyle = TextStyle(
       color: Colors.white.withValues(alpha: 0.5),
       fontSize: 16,
@@ -93,7 +125,10 @@ class ThemeDark extends ApplicationTheme {
       ),
 
       // Bottom App Bar
-      bottomAppBarTheme: const BottomAppBarTheme(color: bottomAppBarColor, elevation: 4.0),
+      bottomAppBarTheme: const BottomAppBarTheme(
+        color: bottomAppBarColor,
+        elevation: 4.0,
+      ),
 
       // Buttons
       buttonTheme: ButtonThemeData(
@@ -105,18 +140,30 @@ class ThemeDark extends ApplicationTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           foregroundColor: WidgetStateProperty.resolveWith<Color?>(
-            (Set<WidgetState> states) => states.contains(WidgetState.disabled) ? disabledColor : Colors.white,
+            (Set<WidgetState> states) =>
+                states.contains(WidgetState.disabled)
+                    ? disabledColor
+                    : Colors.white,
           ),
           textStyle: WidgetStateProperty.resolveWith<TextStyle>(
-            (Set<WidgetState> states) =>
-                TextStyle(color: states.contains(WidgetState.disabled) ? disabledColor : Colors.white),
+            (Set<WidgetState> states) => TextStyle(
+              color:
+                  states.contains(WidgetState.disabled)
+                      ? disabledColor
+                      : Colors.white,
+            ),
           ),
           backgroundColor: WidgetStateProperty.resolveWith<Color?>(
-            (Set<WidgetState> states) => states.contains(WidgetState.disabled) ? disabledColor : primaryColor,
+            (Set<WidgetState> states) =>
+                states.contains(WidgetState.disabled)
+                    ? disabledColor
+                    : primaryColor,
           ),
           overlayColor: WidgetStateProperty.resolveWith<Color?>(
             (Set<WidgetState> states) =>
-                states.contains(WidgetState.pressed) ? primaryColor.withValues(alpha: 0.2) : null,
+                states.contains(WidgetState.pressed)
+                    ? primaryColor.withValues(alpha: 0.2)
+                    : null,
           ),
         ),
       ),
@@ -131,7 +178,11 @@ class ThemeDark extends ApplicationTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: primaryColor,
-          textStyle: const TextStyle(color: primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+          textStyle: const TextStyle(
+            color: primaryColor,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
 
@@ -172,7 +223,9 @@ class ThemeDark extends ApplicationTheme {
       checkboxTheme: CheckboxThemeData(
         side: BorderSide.none,
         checkColor: const WidgetStatePropertyAll<Color>(Colors.black),
-        fillColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        fillColor: WidgetStateProperty.resolveWith<Color?>((
+          Set<WidgetState> states,
+        ) {
           if (states.contains(WidgetState.disabled)) return disabledColor;
           if (states.contains(WidgetState.selected)) return secondaryColor;
           return backgroundColor;
@@ -180,7 +233,9 @@ class ThemeDark extends ApplicationTheme {
       ),
 
       radioTheme: RadioThemeData(
-        fillColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        fillColor: WidgetStateProperty.resolveWith<Color?>((
+          Set<WidgetState> states,
+        ) {
           if (states.contains(WidgetState.disabled)) return disabledColor;
           if (states.contains(WidgetState.selected)) return primaryColor;
           return null;
@@ -188,14 +243,20 @@ class ThemeDark extends ApplicationTheme {
       ),
 
       switchTheme: SwitchThemeData(
-        thumbColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
+        thumbColor: WidgetStateProperty.resolveWith<Color?>((
+          Set<WidgetState> states,
+        ) {
           if (states.contains(WidgetState.disabled)) return disabledColor;
           if (states.contains(WidgetState.selected)) return primaryColor;
           return null;
         }),
-        trackColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
-          if (states.contains(WidgetState.disabled)) return disabledColor.withValues(alpha: 0.5);
-          if (states.contains(WidgetState.selected)) return primaryColor.withValues(alpha: 0.5);
+        trackColor: WidgetStateProperty.resolveWith<Color?>((
+          Set<WidgetState> states,
+        ) {
+          if (states.contains(WidgetState.disabled))
+            return disabledColor.withValues(alpha: 0.5);
+          if (states.contains(WidgetState.selected))
+            return primaryColor.withValues(alpha: 0.5);
           return null;
         }),
       ),
@@ -215,17 +276,24 @@ class ThemeDark extends ApplicationTheme {
         contentTextStyle: snackBarContentStyle,
         actionTextColor: Colors.white,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
       ),
 
       // Tooltip
       tooltipTheme: TooltipThemeData(
-        decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(8.0)),
+        decoration: BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
         textStyle: tooltipTextStyle,
       ),
 
       // Bottom Sheet
-      bottomSheetTheme: const BottomSheetThemeData(backgroundColor: backgroundColor),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: backgroundColor,
+      ),
 
       // Dialog
       dialogTheme: const DialogThemeData(backgroundColor: surfaceColor),

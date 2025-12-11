@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:food_truck_finder_user_app/api/auth/auth_exception.dart';
 import 'package:food_truck_finder_user_app/api/auth/auth_helper.dart';
@@ -29,13 +28,6 @@ HttpClient createHttpClient([String baseUrl = '']) {
 
       final isAuthRequired = response.statusCode == HttpStatus.unauthorized;
       final isUserDeactivated = response.statusCode == HttpStatus.forbidden && errorCode == 'Blocked';
-      // final isTokenExpired = isAuthRequired &&
-      //     response.headers['www-authenticate']?.contains('expired') == true;
-
-      // if (isTokenExpired) {
-      //   await AuthManager.refreshBearerToken();
-      //   throw HttpClientRetryException();
-      // }
 
       if (isAuthRequired || isUserDeactivated) {
         final message = isUserDeactivated ? 'Deactivated' : 'Unauthorized';
@@ -47,14 +39,20 @@ HttpClient createHttpClient([String baseUrl = '']) {
 }
 
 class HttpClient {
-  final _defaultHeaders = {'Content-Type': 'application/json', 'Accept': 'application/json', 'Accept-Language': 'en'};
+  final _defaultHeaders = {'Content-Type': 'application/json', 'Accept': 'application/json'};
   final http.Client _inner = http.Client();
   final String baseUrl;
+  final Duration requestTimeout;
 
   final Future<void> Function(http.BaseRequest request)? requestInterceptor;
   final Future<void> Function(http.Response response)? responseInterceptor;
 
-  HttpClient([this.baseUrl = '', this.requestInterceptor, this.responseInterceptor]);
+  HttpClient([
+    this.baseUrl = '',
+    this.requestInterceptor,
+    this.responseInterceptor,
+    this.requestTimeout = const Duration(seconds: 30),
+  ]);
 
   Future<dynamic> get(String url, {Map<String, String>? headers, Map<String, dynamic>? queryParameters}) async {
     return send('GET', url, headers: headers, queryParameters: queryParameters);
@@ -94,13 +92,14 @@ class HttpClient {
     Map<String, dynamic>? queryParameters,
     dynamic body,
   }) async {
-    final prefs = await SharedPreferences.getInstance();
-    final localeTag = prefs.getString('selected_locale') ?? 'en';
-    Locale lang =
-        localeTag.contains('-')
-            ? Locale.fromSubtags(languageCode: localeTag.split('-')[0], countryCode: localeTag.split('-')[1])
-            : Locale(localeTag);
-    _defaultHeaders['Accept-Language'] = lang.languageCode;
+    // Set Accept-Language from saved locale
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final localeTag = prefs.getString('selected_locale') ?? 'en';
+      _defaultHeaders['Accept-Language'] = localeTag.split('-')[0];
+    } catch (e) {
+      _defaultHeaders['Accept-Language'] = 'en';
+    }
 
     try {
       final isMultipartFormData =
@@ -133,9 +132,11 @@ class HttpClient {
       }
 
       final response = await http.Response.fromStream(await _inner.send(request)).timeout(
-        Duration(seconds: 10),
+        requestTimeout,
         onTimeout: () {
-          throw RequestTimeoutException(message: 'Request Timeout! Please try again later');
+          throw RequestTimeoutException(
+            message: 'Request timeout exceeded. Please check your connection and try again.',
+          );
         },
       );
 
@@ -144,25 +145,32 @@ class HttpClient {
       if (responseInterceptor != null) {
         await responseInterceptor!(response);
       }
+
       if (response.statusCode >= 400) {
         if (response.statusCode == 422) {
           throw ValidationException(responseBody['errors']);
         }
-
-        throw HttpClientException('Request failed', request, response);
+        throw HttpClientException('Request failed with status ${response.statusCode}', request, response);
       }
 
       return responseBody;
     } on HttpClientRetryException {
+      // Retry the request once
       return send(method, url, headers: headers, queryParameters: queryParameters, body: body);
-    } on SocketException {
-      throw ServerConnectionError(message: 'Error to connect Server');
+    } on SocketException catch (e) {
+      log('Socket Exception: ${e.message}');
+      throw ServerConnectionError(message: 'Unable to connect to server. Please check your internet connection.');
     } on ServerConnectionError {
-      throw ServerConnectionError(message: 'Error to connect Server');
-    } catch (e) {
-      log('==============');
-      log(e.toString());
-      log('==============');
+      rethrow;
+    } on RequestTimeoutException {
+      rethrow;
+    } on ValidationException {
+      rethrow;
+    } on AuthException {
+      rethrow;
+    } catch (e, stackTrace) {
+      log('Unexpected HTTP error: $e');
+      log('Stack trace: $stackTrace');
       rethrow;
     }
   }

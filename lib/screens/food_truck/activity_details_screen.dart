@@ -190,7 +190,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> with Sing
                         Wrap(
                           direction: Axis.horizontal,
                           children:
-                              _foodTruck!.sub_categories!
+                              _foodTruck!.subCategories!
                                   .map(
                                     (category) => Container(
                                       margin: EdgeInsets.symmetric(

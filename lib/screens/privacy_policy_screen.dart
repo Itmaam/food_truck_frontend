@@ -52,13 +52,19 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         automaticallyImplyLeading: true,
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(S.of(context).privacy),
-        leading: IconButton(onPressed: () => context.pop(), icon: Icon(Icons.arrow_back)),
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: Icon(Icons.arrow_back),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            Text(S.of(context).privacy, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text(
+              S.of(context).privacy,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 16),
             if (isLoading)
               Center(child: CircularProgressIndicator())
@@ -68,12 +74,18 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                 data:
                     privacyPolicy.isEmpty
                         ? 'No privacy policy available at the moment.'
-                        : Provider.of<LanguageProvider>(context).locale.languageCode == 'ar'
+                        : Provider.of<LanguageProvider>(
+                              context,
+                            ).locale.languageCode ==
+                            'ar'
                         ? privacyPolicyAr
                         : privacyPolicy,
                 style: {
                   "body": Style(fontSize: FontSize(16.0)),
-                  "h1": Style(fontSize: FontSize(24.0), fontWeight: FontWeight.bold),
+                  "h1": Style(
+                    fontSize: FontSize(24.0),
+                    fontWeight: FontWeight.bold,
+                  ),
                 },
               ),
             // Add more policy points as needed

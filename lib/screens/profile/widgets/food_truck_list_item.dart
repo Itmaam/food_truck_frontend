@@ -25,11 +25,20 @@ class FoodTruckListItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
-              Text(foodTruck.description, overflow: TextOverflow.ellipsis, maxLines: 2),
               Text(
-                foodTruck.isOpen ? S.of(context).openNow : S.of(context).closedNow,
+                foodTruck.description,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              Text(
+                foodTruck.isOpen
+                    ? S.of(context).openNow
+                    : S.of(context).closedNow,
                 style: TextStyle(
-                  color: foodTruck.isOpen ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.error,
+                  color:
+                      foodTruck.isOpen
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.error,
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
@@ -38,14 +47,26 @@ class FoodTruckListItem extends StatelessWidget {
                 children: [
                   Icon(Icons.phone, size: 16),
                   const SizedBox(width: 4),
-                  Flexible(child: Text(foodTruck.phone, overflow: TextOverflow.ellipsis, maxLines: 1)),
+                  Flexible(
+                    child: Text(
+                      foodTruck.phone,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
                 ],
               ),
               Row(
                 children: [
                   Icon(Icons.web, size: 16),
                   const SizedBox(width: 4),
-                  Flexible(child: Text(foodTruck.website ?? '', overflow: TextOverflow.ellipsis, maxLines: 1)),
+                  Flexible(
+                    child: Text(
+                      foodTruck.website ?? '',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
                 ],
               ),
               const Spacer(),
@@ -53,24 +74,33 @@ class FoodTruckListItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(
-                    onPressed: () => context.push('/view_activity/${foodTruck.id}'),
+                    onPressed:
+                        () => context.push('/view_activity/${foodTruck.id}'),
                     icon: Icon(
                       Icons.remove_red_eye,
-                      color: Theme.of(context).colorScheme.tertiary, // keep original color
+                      color:
+                          Theme.of(
+                            context,
+                          ).colorScheme.tertiary, // keep original color
                     ),
                   ),
                   IconButton(
-                    onPressed: () => context.push('/edit_activity/${foodTruck.id}'),
+                    onPressed:
+                        () => context.push('/edit_activity/${foodTruck.id}'),
                     icon: Icon(
                       Icons.edit,
-                      color: Theme.of(context).primaryColor, // keep original color
+                      color:
+                          Theme.of(context).primaryColor, // keep original color
                     ),
                   ),
                   IconButton(
                     onPressed: () => onDelete?.call(),
                     icon: Icon(
                       Icons.delete,
-                      color: Theme.of(context).colorScheme.error, // keep original color
+                      color:
+                          Theme.of(
+                            context,
+                          ).colorScheme.error, // keep original color
                     ),
                   ),
                 ],

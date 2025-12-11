@@ -7,7 +7,13 @@ class NotificationModel {
   final DateTime? readAt;
   final DateTime createdAt;
 
-  NotificationModel({required this.id, required this.type, required this.data, this.readAt, required this.createdAt});
+  NotificationModel({
+    required this.id,
+    required this.type,
+    required this.data,
+    this.readAt,
+    required this.createdAt,
+  });
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
     return NotificationModel(

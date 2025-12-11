@@ -38,7 +38,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       // await AppApi.notificationApi.markAsRead(id);
       setState(() => _unreadCount = _unreadCount > 0 ? _unreadCount - 1 : 0);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Failed to mark notification as read')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to mark notification as read')),
+      );
     }
   }
 
@@ -47,9 +49,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       //  await AppApi.notificationApi.markAllAsRead();
       setState(() => _unreadCount = 0);
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Failed to mark all notifications as read')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to mark all notifications as read'),
+        ),
+      );
     }
   }
 
@@ -59,13 +63,19 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         backgroundColor: Theme.of(context).primaryColor,
-        leading: IconButton(onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back)),
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: const Icon(Icons.arrow_back),
+        ),
         title: Text(S.of(context).notifications),
         actions: [
           if (_unreadCount > 0)
             TextButton(
               onPressed: _markAllAsRead,
-              child: Text(S.of(context).markAllRead, style: TextStyle(color: Theme.of(context).primaryColor)),
+              child: Text(
+                S.of(context).markAllRead,
+                style: TextStyle(color: Theme.of(context).primaryColor),
+              ),
             ),
         ],
       ),
@@ -88,7 +98,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               final notification = snapshot.data![index];
-              return NotificationItem(notification: notification, onTap: () => _markAsRead(notification.id.toString()));
+              return NotificationItem(
+                notification: notification,
+                onTap: () => _markAsRead(notification.id.toString()),
+              );
             },
           );
         },
@@ -101,18 +114,28 @@ class NotificationItem extends StatelessWidget {
   final NotificationModel notification;
   final VoidCallback onTap;
 
-  const NotificationItem({super.key, required this.notification, required this.onTap});
+  const NotificationItem({
+    super.key,
+    required this.notification,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      color: notification.readAt == null ? Theme.of(context).colorScheme.surfaceVariant : null,
+      color:
+          notification.readAt == null
+              ? Theme.of(context).colorScheme.surfaceVariant
+              : null,
       child: ListTile(
         leading: const Icon(Icons.notifications),
         title: Text(notification.data['title'] ?? 'Notification'),
         subtitle: Text(notification.data['body'] ?? ''),
-        trailing: Text(notification.createdAt.toString(), style: Theme.of(context).textTheme.labelSmall),
+        trailing: Text(
+          notification.createdAt.toString(),
+          style: Theme.of(context).textTheme.labelSmall,
+        ),
         onTap: onTap,
       ),
     );

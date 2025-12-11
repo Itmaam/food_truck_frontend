@@ -35,14 +35,19 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               children: <Widget>[
                 Text(
                   lang.resetPassword,
-                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontWeight: FontWeight.w800),
+                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: AppSpacing.large),
             FormBuilderTextField(
               name: 'email',
-              decoration: InputDecoration(prefixIcon: Icon(Icons.email_outlined), hintText: lang.email),
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.email_outlined),
+                hintText: lang.email,
+              ),
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.email(),
                 FormBuilderValidators.required(),
@@ -52,14 +57,21 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             if (_errorMessage != null)
               Padding(
                 padding: const EdgeInsets.only(bottom: AppSpacing.medium),
-                child: Text(_errorMessage!, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.red)),
+                child: Text(
+                  _errorMessage!,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: Colors.red),
+                ),
               ),
             if (_successMessage != null)
               Padding(
                 padding: const EdgeInsets.only(bottom: AppSpacing.medium),
                 child: Text(
                   _successMessage!,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.green),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: Colors.green),
                 ),
               ),
             SizedBox(
@@ -74,14 +86,19 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         ? const CircularProgressIndicator(color: Colors.white)
                         : Text(
                           lang.resetPassword,
-                          style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Colors.white),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.labelLarge!.copyWith(color: Colors.white),
                         ),
               ),
             ),
             const SizedBox(height: AppSpacing.medium),
             TextButton(
               onPressed: () => context.push('/auth/login'),
-              child: Text(lang.cancel, style: Theme.of(context).textTheme.labelLarge),
+              child: Text(
+                lang.cancel,
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
             ),
           ],
         ),
@@ -102,7 +119,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         await AppApi.passwordResetApi.requestOtp(email);
 
         setState(() {
-          _successMessage = 'Password reset email sent! Please check your email for the OTP code.';
+          _successMessage =
+              'Password reset email sent! Please check your email for the OTP code.';
         });
 
         // Wait a moment to show the success message, then navigate
@@ -113,7 +131,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         }
       } catch (e) {
         setState(() {
-          _errorMessage = 'Failed to send reset email. Please check your email address and try again.';
+          _errorMessage =
+              'Failed to send reset email. Please check your email address and try again.';
         });
       } finally {
         if (mounted) {

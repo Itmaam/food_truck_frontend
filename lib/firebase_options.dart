@@ -63,8 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '572936989836',
     projectId: 'food-track-finder',
     storageBucket: 'food-track-finder.firebasestorage.app',
-    iosClientId: '572936989836-peri343bahihpk6r8gou79gfog80l0jv.apps.googleusercontent.com',
+    iosClientId:
+        '572936989836-peri343bahihpk6r8gou79gfog80l0jv.apps.googleusercontent.com',
     iosBundleId: 'com.foodTruckFinder.UserApp',
   );
-
 }

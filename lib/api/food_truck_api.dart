@@ -15,11 +15,18 @@ import 'models/category.dart';
 class FoodTruckApi extends BaseCRUDApi<FoodTruck> {
   FoodTruckApi(String apiUrl) : super('$apiUrl/food-truck');
 
-  Future<void> uploadMenuItemImage(String foodTruckId, String menuItemId, File image) async {
-    final uri = Uri.parse('${httpClient.baseUrl}/$foodTruckId/menu-items/$menuItemId/image');
+  Future<void> uploadMenuItemImage(
+    String foodTruckId,
+    String menuItemId,
+    File image,
+  ) async {
+    final uri = Uri.parse(
+      '${httpClient.baseUrl}/$foodTruckId/menu-items/$menuItemId/image',
+    );
 
     var request = http.MultipartRequest('POST', uri);
-    request.headers['Authorization'] = 'Bearer ${UserAuthManager.getBearerToken()}';
+    request.headers['Authorization'] =
+        'Bearer ${UserAuthManager.getBearerToken()}';
 
     final file = await http.MultipartFile.fromPath('image', image.path);
     request.files.add(file);
@@ -59,12 +66,16 @@ class FoodTruckApi extends BaseCRUDApi<FoodTruck> {
     if (categoryIds!.isNotEmpty) {
       // Encode the list as a JSON string, then URI encode the resulting string.
       // This matches the backend expectation (e.g., category="[1]" or category="[1,2]")
-      queryParts.add('category=${Uri.encodeQueryComponent(jsonEncode(categoryIds))}');
+      queryParts.add(
+        'category=${Uri.encodeQueryComponent(jsonEncode(categoryIds))}',
+      );
     }
 
     // Conditionally add sub_category parameter
     if (subCategoryIds!.isNotEmpty) {
-      queryParts.add('sub_category=${Uri.encodeQueryComponent(jsonEncode(subCategoryIds))}');
+      queryParts.add(
+        'sub_category=${Uri.encodeQueryComponent(jsonEncode(subCategoryIds))}',
+      );
     }
 
     // Conditionally add types parameter
@@ -123,7 +134,10 @@ class FoodTruckApi extends BaseCRUDApi<FoodTruck> {
 
   Future<void> uploadImages(String foodTruckId, List<File> images) async {
     try {
-      final request = http.MultipartRequest('POST', Uri.parse('${httpClient.baseUrl}/$foodTruckId/upload-images'));
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse('${httpClient.baseUrl}/$foodTruckId/upload-images'),
+      );
 
       // Add authorization header if needed
       final bearerToken = await AuthHelper.getBearerToken();
@@ -146,7 +160,10 @@ class FoodTruckApi extends BaseCRUDApi<FoodTruck> {
 
       if (response.statusCode != 201) {
         final errorBody = jsonDecode(response.body);
-        throw Exception(errorBody['message'] ?? 'Failed to upload images: ${response.statusCode}');
+        throw Exception(
+          errorBody['message'] ??
+              'Failed to upload images: ${response.statusCode}',
+        );
       }
     } on SocketException {
       throw ServerConnectionError(message: 'Error connecting to server');
